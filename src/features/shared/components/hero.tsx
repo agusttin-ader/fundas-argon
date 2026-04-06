@@ -103,10 +103,10 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden border-b border-[var(--color-border)] pt-6 pb-8 md:pt-8 md:pb-12">
-      <div className="grid items-center gap-8 md:grid-cols-[0.95fr_1.05fr]">
+      <div className="grid items-center gap-8 md:grid-cols-[0.95fr_1.05fr] 2xl:gap-12 min-[2560px]:gap-16">
         <div className="space-y-6">
           <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-red)]">Fundas Argon</p>
-          <h1 className="text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl">
+          <h1 className="text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl 2xl:text-8xl min-[1920px]:text-[6.2rem] min-[2560px]:text-[7.4rem]">
             Catalogo
             <br />
             profesional
@@ -130,7 +130,7 @@ export function Hero() {
             ref={vinylRef}
             onMouseEnter={startHoverSpin}
             onMouseLeave={stopHoverSpin}
-            className="relative aspect-square w-[min(82vw,22rem)] shrink-0 rounded-full bg-[radial-gradient(circle,var(--color-bg)_16%,#111_17%,#0f0f0f_29%,#1d1d1d_30%,#0d0d0d_40%,#1f1f1f_41%,#0d0d0d_52%,#1d1d1d_53%,#0d0d0d_63%,#1e1e1e_64%,#000_100%)] md:w-[30rem]"
+            className="relative aspect-square w-[min(82vw,22rem)] shrink-0 rounded-full bg-[radial-gradient(circle,var(--color-bg)_16%,#111_17%,#0f0f0f_29%,#1d1d1d_30%,#0d0d0d_40%,#1f1f1f_41%,#0d0d0d_52%,#1d1d1d_53%,#0d0d0d_63%,#1e1e1e_64%,#000_100%)] md:w-[30rem] 2xl:w-[36rem] min-[1920px]:w-[40rem] min-[2560px]:w-[50rem]"
           >
             {/* Etiqueta central del vinilo (diámetro ~28% del disco). */}
             <div className="absolute inset-[36%] z-[1] rounded-full border border-[#2a2a2a] bg-[var(--color-bg)]" />

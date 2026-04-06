@@ -34,7 +34,7 @@ export default function ProductDetailPage() {
 
   if (!product) {
     return (
-      <main className="mx-auto flex w-full max-w-6xl flex-1 items-center justify-center p-6 md:p-10">
+      <main className="mx-auto flex w-full max-w-6xl flex-1 items-center justify-center p-6 md:p-10 2xl:max-w-[90rem] min-[1920px]:max-w-[106rem] min-[2560px]:max-w-[138rem]">
         <p className="text-sm text-[var(--color-text-muted)]">Cargando producto...</p>
       </main>
     );
@@ -76,7 +76,7 @@ export default function ProductDetailPage() {
     }`;
 
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 p-6 md:p-10">
+    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 p-6 md:p-10 2xl:max-w-[90rem] 2xl:gap-8 2xl:px-12 min-[1920px]:max-w-[106rem] min-[1920px]:px-16 min-[2560px]:max-w-[138rem] min-[2560px]:gap-10 min-[2560px]:px-24">
       <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-4">
         <Image
           src="/images/logo.png"
@@ -90,14 +90,14 @@ export default function ProductDetailPage() {
         </Link>
       </div>
 
-      <section className="grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
+      <section className="grid gap-5 lg:grid-cols-[0.95fr_1.05fr] 2xl:gap-8 min-[2560px]:gap-10">
         <article className="space-y-3">
           <div className="relative aspect-square overflow-hidden border border-[var(--color-border)] bg-[linear-gradient(145deg,#161616_0%,#0f0f0f_100%)] p-4">
             <div className="absolute right-3 top-3 rounded-full border border-[var(--color-border)] px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
               {product.line}
             </div>
             <div className="flex h-full w-full items-center justify-center">
-              <div className="relative h-[82%] w-[70%] rounded-[1.1rem] border border-[var(--color-border)] bg-[linear-gradient(170deg,#2a2a2a_0%,#161616_75%)] shadow-[0_20px_42px_-20px_rgba(0,0,0,0.5)]">
+              <div className="relative h-[82%] w-[70%] rounded-[1.1rem] border border-[var(--color-border)] bg-[linear-gradient(170deg,#2a2a2a_0%,#161616_75%)] shadow-[0_20px_42px_-20px_rgba(0,0,0,0.5)] 2xl:w-[66%]">
                 <div className="absolute left-1/2 top-4 h-3 w-20 -translate-x-1/2 rounded-full bg-[#101010]" />
                 <div className="absolute left-1/2 top-[38%] w-[68%] -translate-x-1/2 border border-[#343434] bg-[#111] px-3 py-2 text-center text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
                   {currentMedia.replaceAll("-", " ")}
@@ -106,13 +106,13 @@ export default function ProductDetailPage() {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex flex-wrap justify-center gap-2 2xl:gap-3">
             {mediaItems.map((media, index) => (
               <button
                 key={`${media}-${index}`}
                 type="button"
                 onClick={() => setSelectedMedia(index)}
-                className={`flex h-20 w-20 items-center justify-center border p-2 text-center text-[10px] uppercase tracking-[0.1em] transition md:h-24 md:w-24 ${
+                className={`flex h-20 w-20 items-center justify-center border p-2 text-center text-[10px] uppercase tracking-[0.1em] transition md:h-24 md:w-24 2xl:h-28 2xl:w-28 min-[2560px]:h-32 min-[2560px]:w-32 ${
                   selectedMedia === index
                     ? "border-[var(--color-accent-red)] bg-[var(--color-surface)] text-[var(--color-text-primary)]"
                     : "border-[var(--color-border)] bg-[var(--color-surface-secondary)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]"
@@ -124,9 +124,9 @@ export default function ProductDetailPage() {
           </div>
         </article>
 
-        <article className="border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-4 md:p-6">
+        <article className="border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-4 md:p-6 min-[2560px]:p-8">
           <p className="text-xs text-[var(--color-text-muted)]">{product.category}</p>
-          <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl">{product.name}</h1>
+          <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl 2xl:text-5xl min-[2560px]:text-6xl">{product.name}</h1>
 
           <div className="mt-3 flex flex-wrap items-center gap-3 border-b border-[var(--color-border)] pb-4">
             <p className="text-2xl font-semibold text-[var(--color-text-primary)]">{normalizedPrice}</p>

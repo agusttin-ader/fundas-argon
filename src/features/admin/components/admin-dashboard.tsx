@@ -259,10 +259,10 @@ export function AdminDashboard() {
   ];
 
   return (
-    <main className="mx-auto flex w-full max-w-[1400px] flex-1 p-4 md:h-[100dvh] md:overflow-hidden md:p-8">
-      <div className="w-full rounded-[2rem] bg-[var(--color-surface)] p-4 md:h-[calc(100dvh-4rem)] md:p-5 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.65)]">
-        <div className="grid w-full gap-5 md:h-full md:min-h-0 md:grid-cols-[228px_1fr]">
-        <aside className="argon-card relative hidden overflow-hidden rounded-[1.5rem] border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[linear-gradient(180deg,#161616_0%,#111111_100%)] p-5 md:sticky md:top-0 md:flex md:h-[calc(100dvh-6.4rem)] md:max-h-[calc(100dvh-6.4rem)] md:self-start md:flex-col">
+    <main className="mx-auto flex w-full max-w-[1400px] flex-1 p-4 md:h-[100dvh] md:overflow-hidden md:p-8 2xl:max-w-[1680px] 2xl:p-10 min-[1920px]:max-w-[1880px] min-[1920px]:p-12 min-[2560px]:max-w-[2400px] min-[2560px]:p-14">
+      <div className="w-full rounded-[2rem] bg-[var(--color-surface)] p-4 md:h-[calc(100dvh-4rem)] md:p-5 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.65)] 2xl:rounded-[2.2rem] 2xl:p-6 min-[2560px]:rounded-[2.4rem] min-[2560px]:p-8">
+        <div className="grid w-full gap-5 md:h-full md:min-h-0 md:grid-cols-[228px_1fr] 2xl:grid-cols-[280px_1fr] 2xl:gap-6 min-[1920px]:grid-cols-[320px_1fr] min-[2560px]:grid-cols-[380px_1fr] min-[2560px]:gap-8">
+        <aside className="argon-card relative hidden overflow-hidden rounded-[1.5rem] border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[linear-gradient(180deg,#161616_0%,#111111_100%)] p-5 md:sticky md:top-0 md:flex md:h-[calc(100dvh-6.4rem)] md:max-h-[calc(100dvh-6.4rem)] md:self-start md:flex-col 2xl:p-6 min-[1920px]:h-[calc(100dvh-8rem)] min-[1920px]:max-h-[calc(100dvh-8rem)] min-[2560px]:h-[calc(100dvh-9rem)] min-[2560px]:max-h-[calc(100dvh-9rem)] min-[2560px]:p-7">
           <div className="absolute inset-0 bg-[linear-gradient(160deg,color-mix(in_srgb,var(--color-accent-red)_12%,transparent)_0%,transparent_60%)]" />
           <div className="relative z-10 flex h-full flex-col overflow-hidden">
             <div className="border-b border-[var(--color-border)] pb-4 text-center">
@@ -271,7 +271,7 @@ export function AdminDashboard() {
                 alt="Fundas Argon"
                 width={340}
                 height={112}
-                className="mx-auto h-20 w-auto object-contain md:h-24"
+                className="mx-auto h-20 w-auto object-contain md:h-24 2xl:h-28 min-[2560px]:h-32"
                 priority
               />
               <p className="mt-3 text-xs text-[var(--color-text-muted)]">Panel de administracion</p>
@@ -323,10 +323,10 @@ export function AdminDashboard() {
         <section className="space-y-5 md:h-full md:max-h-full md:min-h-0 md:overflow-y-auto md:pr-1">
           <header className="relative overflow-hidden rounded-[1.4rem] border border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[linear-gradient(135deg,#181818_0%,#101214_60%,#0f0f11_100%)] p-6 md:p-7">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,color-mix(in_srgb,var(--color-accent-red)_16%,transparent)_0,transparent_42%)]" />
-            <div className="relative z-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="relative z-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between 2xl:gap-6">
               <div>
                 <p className="argon-eyebrow">Panel Fundas Argon</p>
-                <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
+                <h1 className="text-2xl font-semibold tracking-tight md:text-3xl 2xl:text-4xl min-[2560px]:text-5xl">
                   Hola, {user?.displayName || "Equipo Argon"}!
                 </h1>
                 <p className="mt-1 text-sm text-[var(--color-text-muted)]">
