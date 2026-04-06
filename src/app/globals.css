@@ -1,8 +1,32 @@
 @import "tailwindcss";
 
+/* Por defecto: modo oscuro (sin JS también, hasta que se pida claro). */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #111111;
+  --color-surface: #151515;
+  --color-surface-secondary: #1a1a1a;
+  --color-text-primary: #f2f2f2;
+  --color-text-muted: #a4a4a4;
+  --color-border: #2f2f2f;
+  --color-accent-red: #b3262e;
+  --color-accent-red-soft: #d94a54;
+  --color-accent-red-deep: #8f1f26;
+  /* Alias de marca: detalles UI en rojo (antes azul genérico). */
+  --color-accent-blue: #b3262e;
+  --argon-ease: cubic-bezier(0.33, 1, 0.68, 1);
+  --argon-duration: 260ms;
+  /* Tema: solo CSS, curva suave al final (sin View Transitions = menos tirones). */
+  --argon-theme-duration: 720ms;
+  --argon-theme-ease: cubic-bezier(0.22, 0.99, 0.35, 1);
+  --background: var(--color-bg);
+  --foreground: var(--color-text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --argon-duration: 0ms;
+    --argon-theme-duration: 0ms;
+  }
 }
 
 @theme inline {
@@ -12,15 +36,298 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --color-bg: #efefef;
+  --color-surface: #f7f7f7;
+  --color-surface-secondary: #ffffff;
+  --color-text-primary: #0d0d0d;
+  --color-text-muted: #666666;
+  --color-border: #d7d7d7;
+  --background: var(--color-bg);
+  --foreground: var(--color-text-primary);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Scroll suave a anclas (#catalogo, #personalizacion, etc.). */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  position: relative;
+  overflow-x: hidden;
+  transition:
+    background-color var(--argon-theme-duration) var(--argon-theme-ease),
+    color var(--argon-theme-duration) var(--argon-theme-ease);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-surface-secondary) 35%, transparent),
+    transparent 30%
+  );
+  opacity: 0.5;
+  transition:
+    opacity var(--argon-theme-duration) var(--argon-theme-ease),
+    background var(--argon-theme-duration) var(--argon-theme-ease);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: none;
+  opacity: 0;
+}
+
+.argon-card {
+  border-radius: 0.4rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-secondary);
+  box-shadow: none;
+  transition:
+    background-color var(--argon-theme-duration) var(--argon-theme-ease),
+    border-color var(--argon-theme-duration) var(--argon-theme-ease),
+    color var(--argon-theme-duration) var(--argon-theme-ease);
+}
+
+.argon-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-accent-red);
+}
+
+.argon-button-primary {
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-red) 0%,
+    var(--color-accent-red-soft) 100%
+  );
+  color: #ffffff;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition:
+    background var(--argon-duration) var(--argon-ease),
+    border-color var(--argon-duration) var(--argon-ease),
+    color var(--argon-duration) var(--argon-ease),
+    box-shadow var(--argon-duration) var(--argon-ease),
+    transform var(--argon-duration) var(--argon-ease),
+    opacity var(--argon-duration) var(--argon-ease);
+}
+
+.argon-button-primary:hover {
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--color-accent-red) 38%, transparent);
+  transform: translateY(-1px);
+}
+
+.argon-button-primary:active {
+  transform: translateY(0);
+}
+
+.argon-button-primary:disabled {
+  opacity: 0.55;
+  transform: none;
+  box-shadow: none;
+}
+
+.argon-button-secondary {
+  border-radius: 9999px;
+  border: 1px solid var(--color-accent-red);
+  background: transparent;
+  color: var(--color-accent-red);
+  padding: 0.65rem 1.05rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition:
+    background var(--argon-duration) var(--argon-ease),
+    border-color var(--argon-duration) var(--argon-ease),
+    color var(--argon-duration) var(--argon-ease),
+    box-shadow var(--argon-duration) var(--argon-ease),
+    transform var(--argon-duration) var(--argon-ease);
+}
+
+.argon-button-secondary:hover {
+  background: var(--color-accent-red);
+  color: #ffffff;
+  border-color: var(--color-accent-red);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--color-accent-red) 30%, transparent);
+}
+
+.argon-button-secondary:active {
+  transform: scale(0.98);
+}
+
+.argon-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.argon-input {
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 0.62rem 0.78rem;
+  background: color-mix(in srgb, var(--color-surface) 95%, transparent);
+  color: var(--color-text-primary);
+  transition:
+    border-color var(--argon-duration) var(--argon-ease),
+    box-shadow var(--argon-duration) var(--argon-ease),
+    background-color var(--argon-theme-duration) var(--argon-theme-ease),
+    color var(--argon-theme-duration) var(--argon-theme-ease);
+}
+
+.argon-input:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--color-accent-red) 55%, var(--color-border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent-red) 22%, transparent);
+}
+
+.argon-panel {
+  border: 1px solid var(--color-border);
+  border-radius: 0.4rem;
+  background: var(--color-surface-secondary);
+  transition:
+    background-color var(--argon-theme-duration) var(--argon-theme-ease),
+    border-color var(--argon-theme-duration) var(--argon-theme-ease);
+}
+
+.argon-stitch {
+  position: relative;
+}
+
+.argon-stitch::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 90%, transparent);
+  opacity: 1;
+}
+
+.argon-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-text-muted);
+}
+
+.argon-kicker::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-accent-red) 70%, transparent);
+}
+
+/* Enlaces de marca: hover rojo suave. */
+.argon-link-accent {
+  color: var(--color-text-muted);
+  text-decoration-color: color-mix(in srgb, var(--color-accent-red) 45%, transparent);
+  text-underline-offset: 4px;
+  transition:
+    color var(--argon-duration) var(--argon-ease),
+    text-decoration-color var(--argon-duration) var(--argon-ease);
+}
+
+.argon-link-accent:hover {
+  color: var(--color-accent-red);
+  text-decoration-color: var(--color-accent-red);
+}
+
+/* Iconos circulares footer / redes. */
+.argon-footer-link {
+  display: flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  transition:
+    background-color var(--argon-duration) var(--argon-ease),
+    border-color var(--argon-duration) var(--argon-ease),
+    color var(--argon-duration) var(--argon-ease),
+    transform var(--argon-duration) var(--argon-ease),
+    box-shadow var(--argon-duration) var(--argon-ease);
+}
+
+.argon-footer-link:hover {
+  background-color: var(--color-accent-red);
+  border-color: var(--color-accent-red);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--color-accent-red) 35%, transparent);
+}
+
+.argon-footer-link:active {
+  transform: translateY(0);
+}
+
+/* Numeros KPI: blanco en dark, rojo en light. */
+.argon-metric-number {
+  color: var(--color-text-primary);
+}
+
+html[data-theme="light"] .argon-metric-number {
+  color: var(--color-accent-red);
+}
+
+/* Entrada suave para cambio de secciones del admin. */
+.argon-section-enter {
+  animation: argonSectionIn var(--argon-duration) var(--argon-ease);
+}
+
+@keyframes argonSectionIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .argon-vinyl-spin-transition {
+    animation: none !important;
+  }
 }
