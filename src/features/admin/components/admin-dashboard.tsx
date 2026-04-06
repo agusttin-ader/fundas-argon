@@ -251,11 +251,11 @@ export function AdminDashboard() {
     });
   };
 
-  const navItems: Array<{ id: AdminSection; label: string; helper: string }> = [
-    { id: "resumen", label: "Resumen", helper: "Estado general" },
-    { id: "solicitudes", label: "Solicitudes", helper: `${pendingRequests} pendientes` },
-    { id: "productos", label: "Productos", helper: `${products.length} activos` },
-    { id: "comentarios", label: "Comentarios", helper: `${testimonials.length} cargados` },
+  const navItems: Array<{ id: AdminSection; label: string; helper: string; icon: string }> = [
+    { id: "resumen", label: "Inicio", helper: "Estado general", icon: "Inicio" },
+    { id: "solicitudes", label: "Pedidos", helper: `${pendingRequests} pendientes`, icon: "Pedidos" },
+    { id: "productos", label: "Productos", helper: `${products.length} activos`, icon: "Productos" },
+    { id: "comentarios", label: "Clientes", helper: `${testimonials.length} cargados`, icon: "Clientes" },
   ];
 
   return (
@@ -322,49 +322,33 @@ export function AdminDashboard() {
 
         <section className="min-w-0 space-y-4 overflow-x-clip pb-2 md:h-full md:max-h-full md:min-h-0 md:overflow-y-auto md:space-y-5 md:pr-1 md:pb-0">
           <div className="md:hidden">
-            <div className="sticky top-2 z-20 rounded-[1.1rem] border border-[color-mix(in_srgb,var(--color-border)_75%,transparent)] bg-[color-mix(in_srgb,var(--color-surface-secondary)_76%,transparent)] px-3 py-2 backdrop-blur-xl">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-base font-semibold leading-tight">Hola, {user?.displayName || "Equipo Argon"}!</p>
+            <div className="sticky top-2 z-20 space-y-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-surface-secondary)_82%,transparent)] p-2.5 backdrop-blur-xl">
+              <article className="rounded-[1rem] border border-[color-mix(in_srgb,var(--color-accent-red)_45%,transparent)] bg-[linear-gradient(145deg,color-mix(in_srgb,var(--color-accent-red)_92%,#1a1a1a)_0%,color-mix(in_srgb,var(--color-accent-red)_75%,#141414)_58%,#121212_100%)] p-3 text-white shadow-[0_16px_28px_-20px_rgba(179,38,46,0.75)]">
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-[0.12em] text-white/80">Panel Fundas Argon</p>
+                    <p className="mt-1 text-base font-semibold leading-tight">{user?.displayName || "Equipo Argon"}</p>
+                    <p className="mt-0.5 max-w-[210px] truncate text-[11px] text-white/80">{user?.email}</p>
+                  </div>
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/15 text-xs font-semibold">
+                    FA
+                  </span>
                 </div>
-                <span className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-muted)]">
-                  {pendingRequests} pendientes
-                </span>
-              </div>
-              <p className="mt-1 truncate text-[11px] text-[var(--color-text-muted)]">{user?.email}</p>
-              <div className="mt-2 grid grid-cols-2 gap-2">
-                <Link
-                  href="/"
-                  className="inline-flex min-h-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] no-underline"
-                >
-                  Ver web
-                </Link>
-                <button
-                  type="button"
-                  className="min-h-10 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]"
-                  onClick={() => logOut()}
-                >
-                  Salir
-                </button>
-              </div>
-            </div>
-            <div className="mt-3 rounded-[1.1rem] border border-[color-mix(in_srgb,var(--color-border)_80%,transparent)] bg-[color-mix(in_srgb,var(--color-surface-secondary)_92%,transparent)] p-2">
-              <div className="grid grid-cols-2 gap-2 pb-1">
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setActiveSection(item.id)}
-                    className={`rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] ${
-                      activeSection === item.id
-                        ? "border-[var(--color-accent-red)] bg-[var(--color-accent-red)] text-white shadow-[0_8px_18px_-10px_rgba(179,38,46,0.65)]"
-                        : "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-muted)]"
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
+                <div className="mt-3 grid grid-cols-3 gap-2">
+                  <div className="rounded-xl bg-white/15 p-2">
+                    <p className="text-[10px] text-white/80">Pendientes</p>
+                    <p className="text-base font-semibold">{pendingRequests}</p>
+                  </div>
+                  <div className="rounded-xl bg-white/15 p-2">
+                    <p className="text-[10px] text-white/80">Productos</p>
+                    <p className="text-base font-semibold">{products.length}</p>
+                  </div>
+                  <div className="rounded-xl bg-white/15 p-2">
+                    <p className="text-[10px] text-white/80">Clientes</p>
+                    <p className="text-base font-semibold">{testimonials.length}</p>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
 
@@ -1044,6 +1028,24 @@ export function AdminDashboard() {
           </div>
         </section>
       </div>
+      </div>
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-surface)_90%,transparent)] px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-2 backdrop-blur-xl md:hidden">
+        <div className="mx-auto flex w-full max-w-md items-center justify-between gap-1 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-secondary)] px-2 py-1.5">
+          {navItems.map((item) => (
+            <button
+              key={`bottom-${item.id}`}
+              type="button"
+              onClick={() => setActiveSection(item.id)}
+              className={`min-w-0 flex-1 rounded-xl px-1 py-2 text-center text-[10px] font-medium ${
+                activeSection === item.id
+                  ? "bg-[var(--color-surface)] text-[var(--color-accent-red)]"
+                  : "text-[var(--color-text-muted)]"
+              }`}
+            >
+              <span className="block truncate">{item.icon}</span>
+            </button>
+          ))}
+        </div>
       </div>
     </main>
   );

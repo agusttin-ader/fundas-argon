@@ -38,21 +38,17 @@ const MOCK_ADMIN: EmployeeUser = {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<EmployeeUser | null>(() => {
-    if (typeof window === "undefined") {
-      return null;
-    }
-    if (!firebaseEnabled || !firebaseAuth) {
-      const hasMockSession = window.localStorage.getItem("argon_mock_auth") === "1";
-      return hasMockSession ? MOCK_ADMIN : null;
-    }
-    return null;
-  });
-  const [loading, setLoading] = useState(() => (firebaseEnabled && firebaseAuth ? true : false));
+  const [user, setUser] = useState<EmployeeUser | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!firebaseEnabled || !firebaseAuth) {
-      return;
+      const hasMockSession = window.localStorage.getItem("argon_mock_auth") === "1";
+      const frame = window.requestAnimationFrame(() => {
+        setUser(hasMockSession ? MOCK_ADMIN : null);
+        setLoading(false);
+      });
+      return () => window.cancelAnimationFrame(frame);
     }
 
     const unsubscribe = onAuthStateChanged(firebaseAuth, (nextUser) => {

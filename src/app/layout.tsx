@@ -17,6 +17,16 @@ export const metadata: Metadata = {
   title: "Fundas Argon | Demo Catalogo",
   description:
     "Demo de catalogo para Fundas Argon: fundas artesanales semirrigidas para instrumentos.",
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Fundas Argon",
+    statusBarStyle: "black-translucent",
+  },
 };
 
 export default function RootLayout({
