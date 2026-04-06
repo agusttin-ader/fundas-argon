@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useLayoutEffect,
   useMemo,
   useState,
@@ -18,27 +19,56 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+const THEME_OVERRIDE_KEY = "argon_theme_override";
+
+const getSystemTheme = (): ThemeMode =>
+  window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<ThemeMode>(() => {
     if (typeof window === "undefined") {
       return "dark";
     }
-    const storedTheme = window.localStorage.getItem("argon_theme") as ThemeMode | null;
-    if (storedTheme === "dark" || storedTheme === "light") {
-      return storedTheme;
+    const storedOverride = window.localStorage.getItem(THEME_OVERRIDE_KEY) as ThemeMode | null;
+    if (storedOverride === "dark" || storedOverride === "light") {
+      return storedOverride;
     }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return getSystemTheme();
+  });
+  const [hasOverride, setHasOverride] = useState<boolean>(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+    const storedOverride = window.localStorage.getItem(THEME_OVERRIDE_KEY);
+    return storedOverride === "dark" || storedOverride === "light";
   });
 
   useLayoutEffect(() => {
     document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem("argon_theme", theme);
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
-    setTheme((previousTheme) => (previousTheme === "dark" ? "light" : "dark"));
+    setTheme((previousTheme) => {
+      const nextTheme = previousTheme === "dark" ? "light" : "dark";
+      window.localStorage.setItem(THEME_OVERRIDE_KEY, nextTheme);
+      return nextTheme;
+    });
+    setHasOverride(true);
   }, []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = () => {
+      if (!hasOverride) {
+        setTheme(getSystemTheme());
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, [hasOverride]);
 
   const value = useMemo(
     () => ({

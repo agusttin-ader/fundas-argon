@@ -130,7 +130,7 @@ export function Hero() {
             ref={vinylRef}
             onMouseEnter={startHoverSpin}
             onMouseLeave={stopHoverSpin}
-            className="relative h-[22rem] w-[22rem] shrink-0 rounded-full bg-[radial-gradient(circle,var(--color-bg)_16%,#111_17%,#0f0f0f_29%,#1d1d1d_30%,#0d0d0d_40%,#1f1f1f_41%,#0d0d0d_52%,#1d1d1d_53%,#0d0d0d_63%,#1e1e1e_64%,#000_100%)] md:h-[30rem] md:w-[30rem]"
+            className="relative aspect-square w-[min(82vw,22rem)] shrink-0 rounded-full bg-[radial-gradient(circle,var(--color-bg)_16%,#111_17%,#0f0f0f_29%,#1d1d1d_30%,#0d0d0d_40%,#1f1f1f_41%,#0d0d0d_52%,#1d1d1d_53%,#0d0d0d_63%,#1e1e1e_64%,#000_100%)] md:w-[30rem]"
           >
             {/* Etiqueta central del vinilo (diámetro ~28% del disco). */}
             <div className="absolute inset-[36%] z-[1] rounded-full border border-[#2a2a2a] bg-[var(--color-bg)]" />
