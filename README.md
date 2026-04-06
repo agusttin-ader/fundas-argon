@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fundas Argon
 
-## Getting Started
+Sitio web + panel de administracion para **Fundas Argon**, marca de fundas artesanales semirrigidas para instrumentos musicales.
 
-First, run the development server:
+> Identidad de marca: fuerte, musical y profesional.  
+> Objetivo: mostrar catalogo, captar consultas y facilitar gestion interna.
+
+---
+
+## Que incluye
+
+- **Landing publica** con Hero, Catalogo, Personalizacion y Comentarios.
+- **Detalle de producto** estilo ecommerce con variantes visuales y CTA a WhatsApp.
+- **Panel admin** con autenticacion y CRUD de productos/comentarios/solicitudes.
+- **Arquitectura preparada** para carrito y futura pasarela de pagos.
+- **Tema claro/oscuro** consistente con soporte para preferencias del sistema.
+
+---
+
+## Stack tecnico
+
+- **Next.js 16** (App Router)
+- **React 19** + **TypeScript**
+- **Tailwind CSS 4**
+- **TanStack Query**
+- **Firebase** (listo para integracion)
+- **Zod**
+
+---
+
+## Scripts
+
+```bash
+npm run dev    # entorno local
+npm run lint   # validacion de codigo
+npm run build  # build de produccion
+npm run start  # correr build en local
+```
+
+---
+
+## Puesta en marcha local
+
+1. Clonar repositorio.
+2. Instalar dependencias:
+
+```bash
+npm install
+```
+
+3. Crear archivo de entorno local (si aplica) tomando como base `.env.example`.
+4. Levantar en desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Abrir [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Estructura principal
 
-## Learn More
+```text
+src/
+  app/                # rutas App Router (publicas + admin + producto)
+  features/           # modulos funcionales (catalogo, admin, cart, shared)
+  content/            # contenido de marca y textos globales
+  lib/                # servicios, adapters y utilidades
+  types/              # tipos de dominio y comercio
+public/
+  images/             # assets de marca
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estado del proyecto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Listo para produccion** a nivel frontend.
+- Build y lint validados.
+- Integraciones futuras ya contempladas:
+  - carrito de compras completo,
+  - checkout real/pasarela de pago,
+  - backend persistente productivo.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Roadmap sugerido
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Integrar checkout real (Mercado Pago o similar).
+- Persistir carrito (local storage + sesion usuario).
+- Integrar analitica (eventos de conversion en CTA).
+- Automatizar deploy continuo.
+
+---
+
+## Autoría y marca
+
+Desarrollado para **Fundas Argon**.  
+Diseno y experiencia centrados en conversion, identidad musical y escalabilidad.
