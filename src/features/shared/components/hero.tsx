@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { ThemeToggle } from "@/features/shared/components/theme-toggle";
 
 export function Hero() {
   const vinylRef = useRef<HTMLDivElement | null>(null);
@@ -144,6 +145,9 @@ export function Hero() {
                 priority
               />
             </div>
+          </div>
+          <div className="mt-4 hidden md:flex">
+            <ThemeToggle />
           </div>
         </div>
       </div>
