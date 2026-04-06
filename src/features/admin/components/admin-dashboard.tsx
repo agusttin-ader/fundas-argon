@@ -320,8 +320,42 @@ export function AdminDashboard() {
           </div>
         </aside>
 
-        <section className="space-y-5 md:h-full md:max-h-full md:min-h-0 md:overflow-y-auto md:pr-1">
-          <header className="relative overflow-hidden rounded-[1.4rem] border border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[linear-gradient(135deg,#181818_0%,#101214_60%,#0f0f11_100%)] p-6 md:p-7">
+        <section className="space-y-4 md:h-full md:max-h-full md:min-h-0 md:overflow-y-auto md:space-y-5 md:pr-1">
+          <div className="md:hidden">
+            <div className="argon-card rounded-[1.1rem] p-4">
+              <p className="argon-eyebrow">Panel Fundas Argon</p>
+              <p className="mt-1 text-xl font-semibold tracking-tight">Hola, {user?.displayName || "Equipo Argon"}!</p>
+              <p className="text-xs text-[var(--color-text-muted)]">{user?.email}</p>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <Link href="/" className="argon-button-secondary inline-flex justify-center no-underline">
+                  Ver web
+                </Link>
+                <button type="button" className="argon-button-secondary" onClick={() => logOut()}>
+                  Cerrar sesion
+                </button>
+              </div>
+            </div>
+            <div className="argon-card mt-3 rounded-[1.1rem] p-2">
+              <div className="flex gap-2 overflow-x-auto pb-1">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setActiveSection(item.id)}
+                    className={`shrink-0 rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.08em] ${
+                      activeSection === item.id
+                        ? "border-[var(--color-accent-red)] bg-[var(--color-accent-red)] text-white"
+                        : "border-[var(--color-border)] bg-[var(--color-surface-secondary)] text-[var(--color-text-muted)]"
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <header className="relative hidden overflow-hidden rounded-[1.4rem] border border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[linear-gradient(135deg,#181818_0%,#101214_60%,#0f0f11_100%)] p-6 md:block md:p-7">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,color-mix(in_srgb,var(--color-accent-red)_16%,transparent)_0,transparent_42%)]" />
             <div className="relative z-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between 2xl:gap-6">
               <div>
@@ -332,14 +366,6 @@ export function AdminDashboard() {
                 <p className="mt-1 text-sm text-[var(--color-text-muted)]">
                   {user?.email}
                 </p>
-              </div>
-              <div className="flex gap-2 md:hidden">
-                <Link href="/#catalogo" className="argon-button-secondary inline-flex justify-center no-underline">
-                  Volver al catalogo
-                </Link>
-                <button type="button" className="argon-button-secondary" onClick={() => logOut()}>
-                  Cerrar sesion
-                </button>
               </div>
             </div>
             <div className="relative z-10 mt-6 grid gap-3 md:grid-cols-3">
@@ -361,7 +387,7 @@ export function AdminDashboard() {
           <div key={activeSection} className="argon-section-enter">
           {activeSection === "resumen" ? (
             <section className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-              <article className="argon-card rounded-[1.2rem] p-6">
+              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                 <h3 className="mb-4 text-lg font-semibold">Tareas prioritarias</h3>
                 <div className="space-y-3">
                   <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-4">
@@ -388,7 +414,7 @@ export function AdminDashboard() {
                   </div>
                 </div>
               </article>
-              <article className="argon-card rounded-[1.2rem] p-6">
+              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                 <h3 className="mb-4 text-lg font-semibold">Estado de solicitudes</h3>
                 <div className="grid gap-3">
                   {statusOptions.map((status) => (
@@ -412,7 +438,7 @@ export function AdminDashboard() {
           ) : null}
 
           {activeSection === "solicitudes" ? (
-            <section className="argon-card rounded-[1.2rem] p-6">
+            <section className="argon-card rounded-[1.2rem] p-4 md:p-6">
               <div className="mb-4 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <h3 className="text-lg font-semibold">Bandeja de solicitudes</h3>
@@ -487,7 +513,7 @@ export function AdminDashboard() {
 
           {activeSection === "productos" ? (
             <section className="grid gap-5 2xl:grid-cols-[1fr_420px]">
-              <article className="argon-card rounded-[1.2rem] p-6">
+              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                 <div className="mb-4 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 md:flex-row md:items-center md:justify-between">
                   <div>
                     <h3 className="text-lg font-semibold">Productos</h3>
@@ -539,7 +565,59 @@ export function AdminDashboard() {
                     ))}
                   </select>
                 </div>
-                <div className="overflow-auto rounded-xl border border-[var(--color-border)]">
+                <div className="space-y-2 md:hidden">
+                  {filteredProducts.length === 0 ? (
+                    <p className="rounded-xl border border-[var(--color-border)] p-3 text-sm text-[var(--color-text-muted)]">
+                      No hay productos con esos filtros.
+                    </p>
+                  ) : (
+                    filteredProducts.map((product) => (
+                      <article
+                        key={product.id}
+                        className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-3"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="font-medium">{product.name}</p>
+                            <p className="text-xs capitalize text-[var(--color-text-muted)]">
+                              {product.category} · {product.line}
+                            </p>
+                            <p className="mt-1 text-xs text-[var(--color-text-muted)]">{product.shortDescription}</p>
+                          </div>
+                          {product.featured ? (
+                            <span className="shrink-0 rounded-full border border-emerald-500/45 bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-300">
+                              Destacado
+                            </span>
+                          ) : null}
+                        </div>
+                        <div className="mt-3 flex flex-wrap gap-3">
+                          <button
+                            type="button"
+                            className="text-xs text-[var(--color-accent-red)] underline underline-offset-4"
+                            onClick={() => duplicateProduct(product)}
+                          >
+                            Duplicar
+                          </button>
+                          <button
+                            type="button"
+                            className="text-xs text-[var(--color-accent-red)] underline underline-offset-4"
+                            onClick={() => openProductEditor(product)}
+                          >
+                            Editar
+                          </button>
+                          <button
+                            type="button"
+                            className="text-xs text-rose-300 underline underline-offset-4"
+                            onClick={() => removeProductMutation.mutate(product.id)}
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      </article>
+                    ))
+                  )}
+                </div>
+                <div className="hidden overflow-auto rounded-xl border border-[var(--color-border)] md:block">
                   <table className="w-full min-w-[760px] text-left text-sm">
                     <thead className="bg-[var(--color-surface-secondary)] text-[var(--color-text-muted)]">
                       <tr>
@@ -603,7 +681,7 @@ export function AdminDashboard() {
               </article>
 
               {productEditorOpen ? (
-                <article ref={productEditorRef} className="argon-card rounded-[1.2rem] p-6">
+                <article ref={productEditorRef} className="argon-card rounded-[1.2rem] p-4 md:p-6">
                   <div className="mb-4 flex items-center justify-between border-b border-[var(--color-border)] pb-3">
                     <div>
                       <h3 className="text-lg font-semibold">
@@ -823,7 +901,7 @@ export function AdminDashboard() {
                   </form>
                 </article>
               ) : (
-                <article className="argon-card rounded-[1.2rem] p-6">
+                <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                   <p className="text-sm text-[var(--color-text-muted)]">
                     Selecciona &quot;Nuevo producto&quot; o &quot;Editar&quot; para abrir el editor.
                   </p>
@@ -834,7 +912,7 @@ export function AdminDashboard() {
 
           {activeSection === "comentarios" ? (
             <section className="grid gap-5 2xl:grid-cols-[1fr_420px]">
-              <article className="argon-card rounded-[1.2rem] p-6">
+              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                 <div className="mb-4 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 md:flex-row md:items-center md:justify-between">
                   <div>
                     <h3 className="text-lg font-semibold">Comentarios de clientes</h3>
@@ -887,7 +965,7 @@ export function AdminDashboard() {
                   ))}
                 </div>
               </article>
-              <article className="argon-card rounded-[1.2rem] p-6">
+              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                 <div className="mb-4 border-b border-[var(--color-border)] pb-3">
                   <h3 className="text-lg font-semibold">
                     {testimonialForm.id ? "Editar comentario" : "Nuevo comentario"}
