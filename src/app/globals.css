@@ -390,3 +390,33 @@ html[data-theme="light"] .argon-vinyl-gloss {
   opacity: 0.2;
 }
 
+.argon-admin-hero {
+  border-color: color-mix(in srgb, var(--color-border) 80%, #000);
+  background: linear-gradient(135deg, #181818 0%, #101214 60%, #0f0f11 100%);
+  --admin-hero-text: var(--color-text-primary);
+  --admin-hero-muted: var(--color-text-muted);
+}
+
+.argon-admin-hero-glow {
+  background: radial-gradient(
+    circle at 80% 20%,
+    color-mix(in srgb, var(--color-accent-red) 16%, transparent) 0,
+    transparent 42%
+  );
+}
+
+html[data-theme="light"] .argon-admin-hero {
+  border-color: color-mix(in srgb, var(--color-border) 92%, #fff);
+  background: linear-gradient(135deg, #ffffff 0%, #f6f7f8 58%, #f1f2f4 100%);
+  --admin-hero-text: #141414;
+  --admin-hero-muted: #4f5560;
+}
+
+html[data-theme="light"] .argon-admin-hero-glow {
+  background: radial-gradient(
+    circle at 80% 20%,
+    color-mix(in srgb, var(--color-accent-red) 14%, transparent) 0,
+    transparent 50%
+  );
+}
+

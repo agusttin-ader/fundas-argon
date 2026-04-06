@@ -259,10 +259,10 @@ export function AdminDashboard() {
   ];
 
   return (
-    <main className="mx-auto flex w-full max-w-[1400px] flex-1 p-4 md:h-[100dvh] md:overflow-hidden md:p-8 2xl:max-w-[1680px] 2xl:p-10 min-[1920px]:max-w-[1880px] min-[1920px]:p-12 min-[2560px]:max-w-[2400px] min-[2560px]:p-14">
-      <div className="w-full rounded-[2rem] bg-[var(--color-surface)] p-4 md:h-[calc(100dvh-4rem)] md:p-5 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.65)] 2xl:rounded-[2.2rem] 2xl:p-6 min-[2560px]:rounded-[2.4rem] min-[2560px]:p-8">
-        <div className="grid w-full gap-5 md:h-full md:min-h-0 md:grid-cols-[228px_1fr] 2xl:grid-cols-[280px_1fr] 2xl:gap-6 min-[1920px]:grid-cols-[320px_1fr] min-[2560px]:grid-cols-[380px_1fr] min-[2560px]:gap-8">
-        <aside className="argon-card relative hidden overflow-hidden rounded-[1.5rem] border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[linear-gradient(180deg,#161616_0%,#111111_100%)] p-5 md:sticky md:top-0 md:flex md:h-[calc(100dvh-6.4rem)] md:max-h-[calc(100dvh-6.4rem)] md:self-start md:flex-col 2xl:p-6 min-[1920px]:h-[calc(100dvh-8rem)] min-[1920px]:max-h-[calc(100dvh-8rem)] min-[2560px]:h-[calc(100dvh-9rem)] min-[2560px]:max-h-[calc(100dvh-9rem)] min-[2560px]:p-7">
+    <main className="mx-auto flex w-full max-w-[1400px] flex-1 overflow-x-clip bg-[radial-gradient(circle_at_15%_-10%,rgba(220,220,220,0.18)_0,transparent_40%)] px-3 pb-[calc(env(safe-area-inset-bottom)+5.6rem)] pt-3 md:h-[100dvh] md:overflow-hidden md:bg-none md:p-8 md:pb-8 2xl:max-w-[1680px] 2xl:p-10 min-[1920px]:max-w-[1880px] min-[1920px]:p-12 min-[2560px]:max-w-[2400px] min-[2560px]:p-14">
+      <div className="w-full min-w-0 overflow-x-clip rounded-[1.6rem] border border-[color-mix(in_srgb,var(--color-border)_82%,transparent)] bg-[color-mix(in_srgb,var(--color-surface)_94%,transparent)] p-3 shadow-[0_24px_45px_-30px_rgba(0,0,0,0.45)] backdrop-blur-sm md:h-[calc(100dvh-4rem)] md:rounded-[2rem] md:border-none md:bg-[var(--color-surface)] md:p-5 md:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.65)] 2xl:rounded-[2.2rem] 2xl:p-6 min-[2560px]:rounded-[2.4rem] min-[2560px]:p-8">
+        <div className="grid w-full min-w-0 gap-5 md:h-full md:min-h-0 md:grid-cols-[228px_1fr] 2xl:grid-cols-[280px_1fr] 2xl:gap-6 min-[1920px]:grid-cols-[320px_1fr] min-[2560px]:grid-cols-[380px_1fr] min-[2560px]:gap-8">
+        <aside className="argon-card relative hidden overflow-hidden rounded-[1.5rem] border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[linear-gradient(180deg,#161616_0%,#111111_100%)] p-5 md:sticky md:top-0 md:flex md:h-full md:max-h-full md:self-start md:flex-col 2xl:p-6 min-[2560px]:p-7">
           <div className="absolute inset-0 bg-[linear-gradient(160deg,color-mix(in_srgb,var(--color-accent-red)_12%,transparent)_0%,transparent_60%)]" />
           <div className="relative z-10 flex h-full flex-col overflow-hidden">
             <div className="border-b border-[var(--color-border)] pb-4 text-center">
@@ -320,32 +320,45 @@ export function AdminDashboard() {
           </div>
         </aside>
 
-        <section className="space-y-4 md:h-full md:max-h-full md:min-h-0 md:overflow-y-auto md:space-y-5 md:pr-1">
+        <section className="min-w-0 space-y-4 overflow-x-clip pb-2 md:h-full md:max-h-full md:min-h-0 md:overflow-y-auto md:space-y-5 md:pr-1 md:pb-0">
           <div className="md:hidden">
-            <div className="argon-card rounded-[1.1rem] p-4">
-              <p className="argon-eyebrow">Panel Fundas Argon</p>
-              <p className="mt-1 text-xl font-semibold tracking-tight">Hola, {user?.displayName || "Equipo Argon"}!</p>
-              <p className="text-xs text-[var(--color-text-muted)]">{user?.email}</p>
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                <Link href="/" className="argon-button-secondary inline-flex justify-center no-underline">
+            <div className="sticky top-2 z-20 rounded-[1.1rem] border border-[color-mix(in_srgb,var(--color-border)_75%,transparent)] bg-[color-mix(in_srgb,var(--color-surface-secondary)_76%,transparent)] px-3 py-2 backdrop-blur-xl">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-base font-semibold leading-tight">Hola, {user?.displayName || "Equipo Argon"}!</p>
+                </div>
+                <span className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-muted)]">
+                  {pendingRequests} pendientes
+                </span>
+              </div>
+              <p className="mt-1 truncate text-[11px] text-[var(--color-text-muted)]">{user?.email}</p>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                <Link
+                  href="/"
+                  className="inline-flex min-h-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] no-underline"
+                >
                   Ver web
                 </Link>
-                <button type="button" className="argon-button-secondary" onClick={() => logOut()}>
-                  Cerrar sesion
+                <button
+                  type="button"
+                  className="min-h-10 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-3 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)]"
+                  onClick={() => logOut()}
+                >
+                  Salir
                 </button>
               </div>
             </div>
-            <div className="argon-card mt-3 rounded-[1.1rem] p-2">
-              <div className="flex gap-2 overflow-x-auto pb-1">
+            <div className="mt-3 rounded-[1.1rem] border border-[color-mix(in_srgb,var(--color-border)_80%,transparent)] bg-[color-mix(in_srgb,var(--color-surface-secondary)_92%,transparent)] p-2">
+              <div className="grid grid-cols-2 gap-2 pb-1">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
                     type="button"
                     onClick={() => setActiveSection(item.id)}
-                    className={`shrink-0 rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.08em] ${
+                    className={`rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.08em] ${
                       activeSection === item.id
-                        ? "border-[var(--color-accent-red)] bg-[var(--color-accent-red)] text-white"
-                        : "border-[var(--color-border)] bg-[var(--color-surface-secondary)] text-[var(--color-text-muted)]"
+                        ? "border-[var(--color-accent-red)] bg-[var(--color-accent-red)] text-white shadow-[0_8px_18px_-10px_rgba(179,38,46,0.65)]"
+                        : "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-muted)]"
                     }`}
                   >
                     {item.label}
@@ -355,15 +368,15 @@ export function AdminDashboard() {
             </div>
           </div>
 
-          <header className="relative hidden overflow-hidden rounded-[1.4rem] border border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[linear-gradient(135deg,#181818_0%,#101214_60%,#0f0f11_100%)] p-6 md:block md:p-7">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,color-mix(in_srgb,var(--color-accent-red)_16%,transparent)_0,transparent_42%)]" />
+          <header className="argon-admin-hero relative hidden overflow-hidden rounded-[1.4rem] border p-6 md:block md:p-7">
+            <div className="argon-admin-hero-glow absolute inset-0" />
             <div className="relative z-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between 2xl:gap-6">
               <div>
                 <p className="argon-eyebrow">Panel Fundas Argon</p>
-                <h1 className="text-2xl font-semibold tracking-tight md:text-3xl 2xl:text-4xl min-[2560px]:text-5xl">
+                <h1 className="text-2xl font-semibold tracking-tight text-[var(--admin-hero-text)] md:text-3xl 2xl:text-4xl min-[2560px]:text-5xl">
                   Hola, {user?.displayName || "Equipo Argon"}!
                 </h1>
-                <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+                <p className="mt-1 text-sm text-[var(--admin-hero-muted)]">
                   {user?.email}
                 </p>
               </div>
@@ -387,7 +400,7 @@ export function AdminDashboard() {
           <div key={activeSection} className="argon-section-enter">
           {activeSection === "resumen" ? (
             <section className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
+              <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
                 <h3 className="mb-4 text-lg font-semibold">Tareas prioritarias</h3>
                 <div className="space-y-3">
                   <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-4">
@@ -414,7 +427,7 @@ export function AdminDashboard() {
                   </div>
                 </div>
               </article>
-              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
+              <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
                 <h3 className="mb-4 text-lg font-semibold">Estado de solicitudes</h3>
                 <div className="grid gap-3">
                   {statusOptions.map((status) => (
@@ -438,7 +451,7 @@ export function AdminDashboard() {
           ) : null}
 
           {activeSection === "solicitudes" ? (
-            <section className="argon-card rounded-[1.2rem] p-4 md:p-6">
+            <section className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
               <div className="mb-4 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <h3 className="text-lg font-semibold">Bandeja de solicitudes</h3>
@@ -446,7 +459,7 @@ export function AdminDashboard() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <input
-                    className="argon-input min-w-[220px]"
+                    className="argon-input w-full"
                     placeholder="Buscar por nombre, email o instrumento"
                     value={requestSearch}
                     onChange={(event) => setRequestSearch(event.target.value)}
@@ -483,7 +496,7 @@ export function AdminDashboard() {
                           {request.fullName} · {request.instrument}
                         </p>
                         <p className="text-sm text-[var(--color-text-muted)]">{request.email}</p>
-                        <p className="mt-1 text-sm">{request.message}</p>
+                        <p className="mt-1 break-words text-sm">{request.message}</p>
                         <p className="mt-2 text-xs text-[var(--color-text-muted)]">
                           Creada: {new Date(request.createdAt).toLocaleString("es-AR")}
                         </p>
@@ -513,7 +526,7 @@ export function AdminDashboard() {
 
           {activeSection === "productos" ? (
             <section className="grid gap-5 2xl:grid-cols-[1fr_420px]">
-              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
+              <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
                 <div className="mb-4 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 md:flex-row md:items-center md:justify-between">
                   <div>
                     <h3 className="text-lg font-semibold">Productos</h3>
@@ -681,7 +694,7 @@ export function AdminDashboard() {
               </article>
 
               {productEditorOpen ? (
-                <article ref={productEditorRef} className="argon-card rounded-[1.2rem] p-4 md:p-6">
+                <article ref={productEditorRef} className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
                   <div className="mb-4 flex items-center justify-between border-b border-[var(--color-border)] pb-3">
                     <div>
                       <h3 className="text-lg font-semibold">
@@ -901,7 +914,7 @@ export function AdminDashboard() {
                   </form>
                 </article>
               ) : (
-                <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
+                <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
                   <p className="text-sm text-[var(--color-text-muted)]">
                     Selecciona &quot;Nuevo producto&quot; o &quot;Editar&quot; para abrir el editor.
                   </p>
@@ -912,7 +925,7 @@ export function AdminDashboard() {
 
           {activeSection === "comentarios" ? (
             <section className="grid gap-5 2xl:grid-cols-[1fr_420px]">
-              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
+              <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
                 <div className="mb-4 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 md:flex-row md:items-center md:justify-between">
                   <div>
                     <h3 className="text-lg font-semibold">Comentarios de clientes</h3>
@@ -921,7 +934,7 @@ export function AdminDashboard() {
                     </p>
                   </div>
                   <input
-                    className="argon-input min-w-[220px]"
+                    className="argon-input w-full"
                     placeholder="Buscar comentario"
                     value={testimonialSearch}
                     onChange={(event) => setTestimonialSearch(event.target.value)}
@@ -965,7 +978,7 @@ export function AdminDashboard() {
                   ))}
                 </div>
               </article>
-              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
+              <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
                 <div className="mb-4 border-b border-[var(--color-border)] pb-3">
                   <h3 className="text-lg font-semibold">
                     {testimonialForm.id ? "Editar comentario" : "Nuevo comentario"}
