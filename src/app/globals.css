@@ -331,3 +331,62 @@ html[data-theme="light"] .argon-metric-number {
     animation: none !important;
   }
 }
+
+.argon-vinyl-base {
+  --vinyl-light-angle: 210deg;
+  --vinyl-light-alpha: 0.24;
+  background: radial-gradient(circle at 50% 48%, #2b241d 0%, #1e1914 38%, #13100d 74%, #0b0a08 100%);
+}
+
+.argon-vinyl-ring {
+  border: 1px solid #463a2f;
+  box-shadow:
+    inset 0 0 0 1px #1a140f,
+    inset 0 16px 26px -14px rgba(255, 225, 185, 0.18);
+}
+
+.argon-vinyl-grooves {
+  background: repeating-radial-gradient(circle, #33271f 0, #33271f 1px, #1a1410 1px, #1a1410 3px);
+  opacity: 0.94;
+}
+
+.argon-vinyl-gloss {
+  background: conic-gradient(
+    from var(--vinyl-light-angle) at 66% 20%,
+    transparent 0deg,
+    rgba(255, 238, 204, calc(var(--vinyl-light-alpha) + 0.04)) 46deg,
+    transparent 95deg,
+    transparent 360deg
+  );
+  mix-blend-mode: screen;
+  opacity: 0.14;
+  transition: opacity 340ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+html[data-theme="light"] .argon-vinyl-base {
+  background: radial-gradient(circle at 50% 48%, #2d261f 0%, #1f1a15 38%, #13100d 74%, #0b0a08 100%);
+}
+
+html[data-theme="light"] .argon-vinyl-ring {
+  border-color: #4a3d32;
+  box-shadow:
+    inset 0 0 0 1px #1d1712,
+    inset 0 16px 26px -14px rgba(255, 225, 185, 0.22);
+}
+
+html[data-theme="light"] .argon-vinyl-grooves {
+  background: repeating-radial-gradient(circle, #382b22 0, #382b22 1px, #1d1611 1px, #1d1611 3px);
+  opacity: 0.95;
+}
+
+html[data-theme="light"] .argon-vinyl-gloss {
+  background: conic-gradient(
+    from var(--vinyl-light-angle) at 66% 20%,
+    transparent 0deg,
+    rgba(255, 238, 204, calc(var(--vinyl-light-alpha) + 0.06)) 46deg,
+    transparent 95deg,
+    transparent 360deg
+  );
+  opacity: 0.2;
+}
+

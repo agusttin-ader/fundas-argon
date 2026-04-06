@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTheme } from "@/features/shared/components/theme-context";
 
 function IconMoon({ className }: { className?: string }) {
@@ -44,7 +45,19 @@ function IconSun({ className }: { className?: string }) {
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
-  const isLight = theme === "light";
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  // Primer render estable para evitar mismatch SSR/cliente.
+  const isLight = mounted ? theme === "light" : false;
 
   return (
     <button
