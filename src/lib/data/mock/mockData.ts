@@ -131,6 +131,8 @@ export const mockTestimonials: Testimonial[] = [
     quote:
       "Ya estan listas tus fundas Argon Pro para que tus guitarras viajen seguras y comodamente en avion.",
     featured: true,
+    videoUrl: "",
+    videoAutoplay: true,
   },
   {
     id: "test-sesionista",
@@ -139,6 +141,8 @@ export const mockTestimonials: Testimonial[] = [
     quote:
       "Siempre tratamos de dar lo mejor para resolver las inquietudes de los musicos. Se nota en cada detalle.",
     featured: true,
+    videoUrl: "",
+    videoAutoplay: true,
   },
   {
     id: "test-cliente",
@@ -147,6 +151,8 @@ export const mockTestimonials: Testimonial[] = [
     quote:
       "Pedimos una funda a medida para pedaleras y cables: base reforzada, apertura amplia y proteccion de verdad.",
     featured: false,
+    videoUrl: "",
+    videoAutoplay: false,
   },
 ];
 

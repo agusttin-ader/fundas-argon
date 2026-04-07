@@ -12,7 +12,6 @@ export default function ProductDetailPage() {
   const params = useParams<{ slug: string }>();
   const slug = params.slug;
   const [selectedMedia, setSelectedMedia] = useState(0);
-  const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<"detalle" | "caracteristicas" | "envio">("detalle");
   const productsQuery = useQuery({
     queryKey: ["products"],
@@ -41,11 +40,7 @@ export default function ProductDetailPage() {
   }
 
   const mediaItems = product.gallery.length ? product.gallery : [product.coverImage];
-  const currentMedia = mediaItems[selectedMedia] ?? mediaItems[0] ?? product.coverImage;
   const normalizedPrice = product.priceFrom && product.priceFrom > 0 ? `$${product.priceFrom}` : "A consultar";
-  const ratingValue = product.line === "pro" ? 4.9 : product.line === "personalizada" ? 5 : 4.7;
-  const reviewCount = product.featured ? 28 : 14;
-  const ratingStars = Array.from({ length: 5 }, (_, index) => (index < Math.round(ratingValue) ? "★" : "☆"));
   const mediaLabelMap: Record<string, string> = {
     "hero-guitarra": "Frente",
     "detalle-cierre": "Cierre reforzado",
@@ -77,7 +72,7 @@ export default function ProductDetailPage() {
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 p-6 md:p-10 2xl:max-w-[90rem] 2xl:gap-8 2xl:px-12 min-[1920px]:max-w-[106rem] min-[1920px]:px-16 min-[2560px]:max-w-[138rem] min-[2560px]:gap-10 min-[2560px]:px-24">
-      <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-4">
+      <div className="flex items-center justify-between border-b border-[color-mix(in_srgb,var(--color-border)_42%,transparent)] pb-4">
         <Image
           src="/images/logo.png"
           alt="Fundas Argon"
@@ -92,18 +87,12 @@ export default function ProductDetailPage() {
 
       <section className="grid gap-5 lg:grid-cols-[0.95fr_1.05fr] 2xl:gap-8 min-[2560px]:gap-10">
         <article className="space-y-3">
-          <div className="relative aspect-square overflow-hidden border border-[var(--color-border)] bg-[linear-gradient(145deg,#161616_0%,#0f0f0f_100%)] p-4">
-            <div className="absolute right-3 top-3 rounded-full border border-[var(--color-border)] px-2 py-1 text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
+          <div className="relative aspect-square overflow-hidden border border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] bg-[var(--color-surface-secondary)] p-4">
+            <div className="absolute right-3 top-3 text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
               {product.line}
             </div>
-            <div className="flex h-full w-full items-center justify-center">
-              <div className="relative h-[82%] w-[70%] rounded-[1.1rem] border border-[var(--color-border)] bg-[linear-gradient(170deg,#2a2a2a_0%,#161616_75%)] shadow-[0_20px_42px_-20px_rgba(0,0,0,0.5)] 2xl:w-[66%]">
-                <div className="absolute left-1/2 top-4 h-3 w-20 -translate-x-1/2 rounded-full bg-[#101010]" />
-                <div className="absolute left-1/2 top-[38%] w-[68%] -translate-x-1/2 border border-[#343434] bg-[#111] px-3 py-2 text-center text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
-                  {currentMedia.replaceAll("-", " ")}
-                </div>
-                <div className="absolute inset-x-3 bottom-3 h-[26%] rounded-lg border border-[#2e2e2e] bg-[#121212]" />
-              </div>
+            <div className="absolute inset-0 flex items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+              IMAGEN
             </div>
           </div>
           <div className="flex flex-wrap justify-center gap-2 2xl:gap-3">
@@ -112,10 +101,10 @@ export default function ProductDetailPage() {
                 key={`${media}-${index}`}
                 type="button"
                 onClick={() => setSelectedMedia(index)}
-                className={`flex h-20 w-20 items-center justify-center border p-2 text-center text-[10px] uppercase tracking-[0.1em] transition md:h-24 md:w-24 2xl:h-28 2xl:w-28 min-[2560px]:h-32 min-[2560px]:w-32 ${
+                className={`flex h-20 w-20 items-center justify-center border p-2 text-center text-[10px] uppercase tracking-[0.14em] transition md:h-24 md:w-24 2xl:h-28 2xl:w-28 min-[2560px]:h-32 min-[2560px]:w-32 ${
                   selectedMedia === index
                     ? "border-[var(--color-accent-red)] bg-[var(--color-surface)] text-[var(--color-text-primary)]"
-                    : "border-[var(--color-border)] bg-[var(--color-surface-secondary)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]"
+                    : "border-[color-mix(in_srgb,var(--color-border)_50%,transparent)] bg-[var(--color-surface-secondary)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]"
                 }`}
               >
                 {formatMediaLabel(media)}
@@ -124,30 +113,23 @@ export default function ProductDetailPage() {
           </div>
         </article>
 
-        <article className="border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-4 md:p-6 min-[2560px]:p-8">
-          <p className="text-xs text-[var(--color-text-muted)]">{product.category}</p>
+        <article className="border border-[color-mix(in_srgb,var(--color-border)_42%,transparent)] bg-[color-mix(in_srgb,var(--color-surface)_96%,transparent)] p-4 md:p-6 min-[2560px]:p-8">
+          <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">{product.category}</p>
           <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl 2xl:text-5xl min-[2560px]:text-6xl">{product.name}</h1>
 
-          <div className="mt-3 flex flex-wrap items-center gap-3 border-b border-[var(--color-border)] pb-4">
+          <div className="mt-4 flex flex-wrap items-center gap-3 border-b border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] pb-4">
             <p className="text-2xl font-semibold text-[var(--color-text-primary)]">{normalizedPrice}</p>
             {product.featured ? (
-              <span className="rounded-full bg-[color-mix(in_srgb,var(--color-accent-red)_22%,transparent)] px-2.5 py-1 text-[10px] uppercase tracking-[0.12em] text-[var(--color-accent-red-soft)]">
+              <span className="rounded-full bg-[color-mix(in_srgb,var(--color-accent-red)_22%,transparent)] px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-[var(--color-accent-red-soft)]">
                 destacado
               </span>
             ) : null}
-            <div className="ml-auto flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
-              <span className="text-sm tracking-[0.12em] text-[var(--color-accent-red-soft)]">
-                {ratingStars.join("")}
-              </span>
-              <span>{ratingValue.toFixed(1)}</span>
-              <span>({reviewCount} resenas)</span>
-            </div>
           </div>
 
           <p className="mt-4 text-sm leading-relaxed text-[var(--color-text-muted)]">{product.shortDescription}</p>
           <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">{product.description}</p>
 
-          <div className="mt-5 space-y-3 border-y border-[var(--color-border)] py-4">
+          <div className="mt-5 space-y-3 border-y border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] py-4">
             <div>
               <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-text-muted)]">Linea</p>
               <div className="mt-2 flex flex-wrap gap-2">
@@ -161,27 +143,6 @@ export default function ProductDetailPage() {
                 ))}
               </div>
             </div>
-
-            <div className="flex items-center gap-3">
-              <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-text-muted)]">Cantidad</p>
-              <div className="inline-flex items-center overflow-hidden rounded-full border border-[var(--color-border)]">
-                <button
-                  type="button"
-                  onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                  className="px-3 py-1 text-sm text-[var(--color-text-muted)] hover:bg-[var(--color-surface)]"
-                >
-                  -
-                </button>
-                <span className="min-w-10 px-3 text-center text-sm">{quantity}</span>
-                <button
-                  type="button"
-                  onClick={() => setQuantity((prev) => Math.min(10, prev + 1))}
-                  className="px-3 py-1 text-sm text-[var(--color-text-muted)] hover:bg-[var(--color-surface)]"
-                >
-                  +
-                </button>
-              </div>
-            </div>
           </div>
 
           <div className="mt-5 flex flex-wrap gap-3">
@@ -193,7 +154,7 @@ export default function ProductDetailPage() {
             </Link>
           </div>
 
-          <div className="mt-7 border-t border-[var(--color-border)] pt-4">
+          <div className="mt-7 border-t border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] pt-4">
             <div className="flex items-center gap-5">
               <button type="button" className={tabButtonClass("detalle")} onClick={() => setActiveTab("detalle")}>
                 Detalle

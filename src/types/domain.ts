@@ -37,6 +37,8 @@ export interface Testimonial {
   role: string;
   quote: string;
   featured: boolean;
+  videoUrl?: string;
+  videoAutoplay?: boolean;
 }
 
 export interface CustomizationRequest {

@@ -21,7 +21,7 @@ export function CatalogGrid({ products }: CatalogGridProps) {
           {products.length} productos · {featuredCount} destacados
         </p>
       </div>
-      <div className="mx-auto grid max-w-5xl gap-3 md:grid-cols-2 lg:grid-cols-3 2xl:max-w-7xl 2xl:gap-4 min-[1920px]:max-w-[84rem]">
+      <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-1 lg:grid-cols-2 2xl:max-w-[92rem] 2xl:gap-5 min-[1920px]:max-w-[104rem]">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

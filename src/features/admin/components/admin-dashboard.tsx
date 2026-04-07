@@ -46,6 +46,8 @@ const emptyTestimonial: Testimonial = {
   role: "",
   quote: "",
   featured: false,
+  videoUrl: "",
+  videoAutoplay: false,
 };
 
 const quickSpecTemplates = [
@@ -65,6 +67,12 @@ const statusTone: Record<(typeof statusOptions)[number], string> = {
   pendiente: "border-amber-500/40 bg-amber-500/10 text-amber-300",
   contactado: "border-sky-500/40 bg-sky-500/10 text-sky-300",
   cerrado: "border-emerald-500/40 bg-emerald-500/10 text-emerald-300",
+};
+
+const isDirectVideoUrl = (url?: string) => {
+  if (!url) return false;
+  const clean = url.trim().toLowerCase();
+  return clean.endsWith(".mp4") || clean.endsWith(".webm") || clean.includes(".mp4?") || clean.includes(".webm?");
 };
 
 export function AdminDashboard() {
@@ -259,11 +267,10 @@ export function AdminDashboard() {
   ];
 
   return (
-    <main className="mx-auto flex w-full max-w-[1400px] flex-1 overflow-x-clip bg-[radial-gradient(circle_at_15%_-10%,rgba(220,220,220,0.18)_0,transparent_40%)] px-3 pb-[calc(env(safe-area-inset-bottom)+5.6rem)] pt-3 md:h-[100dvh] md:overflow-hidden md:bg-none md:p-8 md:pb-8 2xl:max-w-[1680px] 2xl:p-10 min-[1920px]:max-w-[1880px] min-[1920px]:p-12 min-[2560px]:max-w-[2400px] min-[2560px]:p-14">
-      <div className="w-full min-w-0 overflow-x-clip rounded-[1.6rem] border border-[color-mix(in_srgb,var(--color-border)_82%,transparent)] bg-[color-mix(in_srgb,var(--color-surface)_94%,transparent)] p-3 shadow-[0_24px_45px_-30px_rgba(0,0,0,0.45)] backdrop-blur-sm md:h-[calc(100dvh-4rem)] md:rounded-[2rem] md:border-none md:bg-[var(--color-surface)] md:p-5 md:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.65)] 2xl:rounded-[2.2rem] 2xl:p-6 min-[2560px]:rounded-[2.4rem] min-[2560px]:p-8">
+    <main className="mx-auto flex w-full max-w-[1400px] flex-1 overflow-x-clip px-3 pb-[calc(env(safe-area-inset-bottom)+5.6rem)] pt-3 md:h-[100dvh] md:overflow-hidden md:p-8 md:pb-8 2xl:max-w-[1680px] 2xl:p-10 min-[1920px]:max-w-[1880px] min-[1920px]:p-12 min-[2560px]:max-w-[2400px] min-[2560px]:p-14">
+      <div className="w-full min-w-0 overflow-x-clip rounded-[1.6rem] border border-[color-mix(in_srgb,var(--color-border)_82%,transparent)] bg-[var(--color-surface)] p-3 md:h-[calc(100dvh-4rem)] md:rounded-[2rem] md:border-none md:p-5 2xl:rounded-[2.2rem] 2xl:p-6 min-[2560px]:rounded-[2.4rem] min-[2560px]:p-8">
         <div className="grid w-full min-w-0 gap-5 md:h-full md:min-h-0 md:grid-cols-[228px_1fr] 2xl:grid-cols-[280px_1fr] 2xl:gap-6 min-[1920px]:grid-cols-[320px_1fr] min-[2560px]:grid-cols-[380px_1fr] min-[2560px]:gap-8">
-        <aside className="argon-card relative hidden overflow-hidden rounded-[1.5rem] border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[linear-gradient(180deg,#161616_0%,#111111_100%)] p-5 md:sticky md:top-0 md:flex md:h-full md:max-h-full md:self-start md:flex-col 2xl:p-6 min-[2560px]:p-7">
-          <div className="absolute inset-0 bg-[linear-gradient(160deg,color-mix(in_srgb,var(--color-accent-red)_12%,transparent)_0%,transparent_60%)]" />
+        <aside className="argon-card relative hidden overflow-hidden rounded-[1.5rem] border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[var(--color-surface-secondary)] p-5 md:sticky md:top-0 md:flex md:h-full md:max-h-full md:self-start md:flex-col 2xl:p-6 min-[2560px]:p-7">
           <div className="relative z-10 flex h-full flex-col overflow-hidden">
             <div className="border-b border-[var(--color-border)] pb-4 text-center">
               <Image
@@ -322,8 +329,8 @@ export function AdminDashboard() {
 
         <section className="min-w-0 space-y-4 overflow-x-clip pb-2 md:h-full md:max-h-full md:min-h-0 md:overflow-y-auto md:space-y-5 md:pr-1 md:pb-0">
           <div className="md:hidden">
-            <div className="sticky top-2 z-20 space-y-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-surface-secondary)_82%,transparent)] p-2.5 backdrop-blur-xl">
-              <article className="rounded-[1rem] border border-[color-mix(in_srgb,var(--color-accent-red)_45%,transparent)] bg-[linear-gradient(145deg,color-mix(in_srgb,var(--color-accent-red)_92%,#1a1a1a)_0%,color-mix(in_srgb,var(--color-accent-red)_75%,#141414)_58%,#121212_100%)] p-3 text-white shadow-[0_16px_28px_-20px_rgba(179,38,46,0.75)]">
+            <div className="sticky top-2 z-20 space-y-2 rounded-[1.2rem] border border-[color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-surface-secondary)_88%,transparent)] p-2.5">
+              <article className="rounded-[1rem] border border-[color-mix(in_srgb,var(--color-accent-red)_38%,transparent)] bg-[var(--color-accent-red)] p-3 text-white">
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <p className="text-[11px] uppercase tracking-[0.12em] text-white/80">Panel Fundas Argon</p>
@@ -352,9 +359,8 @@ export function AdminDashboard() {
             </div>
           </div>
 
-          <header className="argon-admin-hero relative hidden overflow-hidden rounded-[1.4rem] border p-6 md:block md:p-7">
-            <div className="argon-admin-hero-glow absolute inset-0" />
-            <div className="relative z-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between 2xl:gap-6">
+          <header className="argon-admin-hero hidden overflow-hidden rounded-[1.4rem] border p-6 md:block md:p-7">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between 2xl:gap-6">
               <div>
                 <p className="argon-eyebrow">Panel Fundas Argon</p>
                 <h1 className="text-2xl font-semibold tracking-tight text-[var(--admin-hero-text)] md:text-3xl 2xl:text-4xl min-[2560px]:text-5xl">
@@ -365,7 +371,7 @@ export function AdminDashboard() {
                 </p>
               </div>
             </div>
-            <div className="relative z-10 mt-6 grid gap-3 md:grid-cols-3">
+            <div className="mt-6 grid gap-3 md:grid-cols-3">
               <article className="rounded-2xl border border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-surface-secondary)_92%,transparent)] p-4">
                 <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-text-muted)]">Productos activos</p>
                 <p className="mt-1 text-2xl font-semibold">{products.length}</p>
@@ -384,7 +390,7 @@ export function AdminDashboard() {
           <div key={activeSection} className="argon-section-enter">
           {activeSection === "resumen" ? (
             <section className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-              <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
+              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                 <h3 className="mb-4 text-lg font-semibold">Tareas prioritarias</h3>
                 <div className="space-y-3">
                   <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-4">
@@ -411,7 +417,7 @@ export function AdminDashboard() {
                   </div>
                 </div>
               </article>
-              <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
+              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                 <h3 className="mb-4 text-lg font-semibold">Estado de solicitudes</h3>
                 <div className="grid gap-3">
                   {statusOptions.map((status) => (
@@ -435,7 +441,7 @@ export function AdminDashboard() {
           ) : null}
 
           {activeSection === "solicitudes" ? (
-            <section className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
+            <section className="argon-card rounded-[1.2rem] p-4 md:p-6">
               <div className="mb-4 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <h3 className="text-lg font-semibold">Bandeja de solicitudes</h3>
@@ -510,7 +516,7 @@ export function AdminDashboard() {
 
           {activeSection === "productos" ? (
             <section className="grid gap-5 2xl:grid-cols-[1fr_420px]">
-              <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
+              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                 <div className="mb-4 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 md:flex-row md:items-center md:justify-between">
                   <div>
                     <h3 className="text-lg font-semibold">Productos</h3>
@@ -678,7 +684,7 @@ export function AdminDashboard() {
               </article>
 
               {productEditorOpen ? (
-                <article ref={productEditorRef} className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
+                <article ref={productEditorRef} className="argon-card rounded-[1.2rem] p-4 md:p-6">
                   <div className="mb-4 flex items-center justify-between border-b border-[var(--color-border)] pb-3">
                     <div>
                       <h3 className="text-lg font-semibold">
@@ -898,7 +904,7 @@ export function AdminDashboard() {
                   </form>
                 </article>
               ) : (
-                <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
+                <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                   <p className="text-sm text-[var(--color-text-muted)]">
                     Selecciona &quot;Nuevo producto&quot; o &quot;Editar&quot; para abrir el editor.
                   </p>
@@ -909,7 +915,7 @@ export function AdminDashboard() {
 
           {activeSection === "comentarios" ? (
             <section className="grid gap-5 2xl:grid-cols-[1fr_420px]">
-              <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
+              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                 <div className="mb-4 flex flex-col gap-3 border-b border-[var(--color-border)] pb-4 md:flex-row md:items-center md:justify-between">
                   <div>
                     <h3 className="text-lg font-semibold">Comentarios de clientes</h3>
@@ -930,6 +936,35 @@ export function AdminDashboard() {
                       key={testimonial.id}
                       className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-4"
                     >
+                      {testimonial.videoUrl ? (
+                        <div className="mb-3 overflow-hidden rounded-lg border border-[var(--color-border)] bg-black">
+                          {isDirectVideoUrl(testimonial.videoUrl) ? (
+                            <video
+                              src={testimonial.videoUrl}
+                              className="h-64 w-full object-cover"
+                              muted
+                              loop
+                              playsInline
+                              controls
+                              preload="metadata"
+                            />
+                          ) : (
+                            <div className="flex h-64 w-full flex-col items-center justify-center gap-2 p-4 text-center">
+                              <p className="text-xs uppercase tracking-[0.12em] text-white/70">
+                                Link externo detectado
+                              </p>
+                              <a
+                                href={testimonial.videoUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="rounded-full border border-white/30 px-3 py-1.5 text-[11px] uppercase tracking-[0.12em] text-white"
+                              >
+                                Abrir video
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      ) : null}
                       <div className="flex items-start justify-between gap-2">
                         <div>
                           <p className="font-medium">{testimonial.musicianName}</p>
@@ -962,7 +997,7 @@ export function AdminDashboard() {
                   ))}
                 </div>
               </article>
-              <article className="argon-card rounded-[1.2rem] p-4 shadow-[0_16px_28px_-20px_rgba(0,0,0,0.55)] md:p-6 md:shadow-none">
+              <article className="argon-card rounded-[1.2rem] p-4 md:p-6">
                 <div className="mb-4 border-b border-[var(--color-border)] pb-3">
                   <h3 className="text-lg font-semibold">
                     {testimonialForm.id ? "Editar comentario" : "Nuevo comentario"}
@@ -1008,6 +1043,20 @@ export function AdminDashboard() {
                       required
                     />
                   </label>
+                  <label className="argon-label">
+                    URL de video vertical (opcional)
+                    <input
+                      className="argon-input"
+                      value={testimonialForm.videoUrl ?? ""}
+                      onChange={(event) =>
+                        setTestimonialForm((prev) => ({ ...prev, videoUrl: event.target.value }))
+                      }
+                      placeholder="https://.../video.mp4"
+                    />
+                    <span className="mt-1 block text-[11px] text-[var(--color-text-muted)]">
+                      Recomendado: URL directa .mp4/.webm. Si pegas un reel/link externo, se mostrara boton para abrir.
+                    </span>
+                  </label>
                   <label className="inline-flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
                     <input
                       type="checkbox"
@@ -1017,6 +1066,16 @@ export function AdminDashboard() {
                       }
                     />
                     Mostrar como destacado
+                  </label>
+                  <label className="inline-flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
+                    <input
+                      type="checkbox"
+                      checked={testimonialForm.videoAutoplay ?? false}
+                      onChange={(event) =>
+                        setTestimonialForm((prev) => ({ ...prev, videoAutoplay: event.target.checked }))
+                      }
+                    />
+                    Reproducir video automatico en loop (silenciado)
                   </label>
                   <button type="submit" className="argon-button-primary w-full">
                     {saveTestimonialMutation.isPending ? "Guardando..." : "Guardar comentario"}
@@ -1029,7 +1088,7 @@ export function AdminDashboard() {
         </section>
       </div>
       </div>
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-surface)_90%,transparent)] px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-2 backdrop-blur-xl md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[var(--color-surface)] px-3 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-2 md:hidden">
         <div className="mx-auto flex w-full max-w-md items-center justify-between gap-1 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-secondary)] px-2 py-1.5">
           {navItems.map((item) => (
             <button
