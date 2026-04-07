@@ -2,6 +2,14 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/app/providers";
+import {
+  DEFAULT_OG_IMAGE,
+  DEFAULT_SEO_DESCRIPTION,
+  DEFAULT_SEO_KEYWORDS,
+  SITE_NAME,
+  SITE_URL,
+  absoluteUrl,
+} from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,9 +22,42 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fundas Argon | Demo catálogo",
-  description:
-    "Demo de catálogo para Fundas Argon: fundas artesanales semirrígidas para instrumentos.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} | Demo catálogo`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: DEFAULT_SEO_DESCRIPTION,
+  keywords: DEFAULT_SEO_KEYWORDS,
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
+  openGraph: {
+    siteName: SITE_NAME,
+    locale: "es_AR",
+    type: "website",
+    url: absoluteUrl("/"),
+    title: `${SITE_NAME} | Demo catálogo`,
+    description: DEFAULT_SEO_DESCRIPTION,
+    images: [{ url: absoluteUrl(DEFAULT_OG_IMAGE), width: 512, height: 512, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} | Demo catálogo`,
+    description: DEFAULT_SEO_DESCRIPTION,
+    images: [absoluteUrl(DEFAULT_OG_IMAGE)],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
