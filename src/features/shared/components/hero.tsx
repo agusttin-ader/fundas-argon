@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { siteContent } from "@/content/site";
 import { ThemeToggle } from "@/features/shared/components/theme-toggle";
 
 type TonearmMode = "rest" | "tracking";
@@ -192,26 +193,25 @@ export function Hero() {
       ? "rotate-[93deg]"
       : "rotate-[10deg]";
 
+  const { brandName, hero } = siteContent;
+
   return (
     <section className="relative overflow-hidden border-b border-[var(--color-border)] pt-6 pb-8 md:pt-8 md:pb-12">
       <div className="grid items-center gap-8 md:grid-cols-[0.95fr_1.05fr] 2xl:gap-12 min-[2560px]:gap-16">
         <div className="space-y-6">
-          <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-red)]">Fundas Argon</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-red)]">{brandName}</p>
           <h1 className="text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl 2xl:text-8xl min-[1920px]:text-[6.2rem] min-[2560px]:text-[7.4rem]">
-            Catalogo
+            {hero.titleLine1}
             <br />
-            profesional
+            {hero.titleLine2}
           </h1>
-          <p className="max-w-md text-sm leading-relaxed text-[var(--color-text-muted)]">
-            Fundas semirrigidas para guitarra, bajo, bateria, teclados y mas. Trabajos standard y a
-            medida, pensados para viajar seguro, ensayar comodo y tocar sin preocupaciones.
-          </p>
+          <p className="max-w-md text-sm leading-relaxed text-[var(--color-text-muted)]">{hero.subtitle}</p>
           <div className="flex flex-wrap gap-3">
             <a href="#catalogo" className="argon-button-primary">
-              Ver catalogo
+              {hero.ctaPrimary}
             </a>
             <a href="#personalizacion" className="argon-button-secondary">
-              Personalizar
+              {hero.ctaSecondary}
             </a>
           </div>
         </div>
@@ -273,9 +273,9 @@ export function Hero() {
         </div>
       </div>
       <div className="mt-8 flex items-center justify-between border-t border-[var(--color-border)] pt-4 text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
-        <span>hecho en argentina</span>
+        <span>Hecho en Argentina</span>
         <Link href="/admin" className="argon-link-accent underline">
-          panel admin
+          Panel admin
         </Link>
       </div>
     </section>

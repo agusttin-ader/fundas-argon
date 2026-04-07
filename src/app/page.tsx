@@ -46,7 +46,7 @@ export default function Home() {
           <p className="text-xs text-[var(--color-text-muted)]">Seguidores y comunidad activa</p>
         </article>
         <article className="border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-4 2xl:p-5 min-[2560px]:p-6">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">Produccion</p>
+          <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">Producción</p>
           <p className="argon-metric-number mt-2 text-4xl font-semibold 2xl:text-5xl min-[2560px]:text-6xl">
             <CountUpNumber end={356} suffix="+" />
           </p>
@@ -57,7 +57,7 @@ export default function Home() {
           <p className="argon-metric-number mt-2 text-4xl font-semibold 2xl:text-5xl min-[2560px]:text-6xl">
             <CountUpNumber end={100} suffix="%" />
           </p>
-          <p className="text-xs text-[var(--color-text-muted)]">Proteccion semirrigida profesional</p>
+          <p className="text-xs text-[var(--color-text-muted)]">Protección semirrígida profesional</p>
         </article>
       </section>
       <CatalogGrid products={products} />

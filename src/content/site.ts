@@ -1,16 +1,17 @@
 export const siteContent = {
   brandName: "Fundas Argon",
-  tagline: "Fundas artesanales semirrigidas para instrumentos",
+  tagline: "Fundas artesanales semirrígidas para instrumentos",
   city: "Hurlingham, Buenos Aires",
   hero: {
-    title: "Fundas artesanales semirrigidas para musicos exigentes.",
+    titleLine1: "Protección artesanal",
+    titleLine2: "hecha a medida",
     subtitle:
-      "Trabajos estandar y a medida para guitarra, bajo, bateria, teclados y mas.",
-    ctaPrimary: "Ver catalogo",
-    ctaSecondary: "Personalizar mi funda",
+      "Fundas semirrígidas para guitarra, bajo, batería, teclados y más. Trabajos estándar y a medida, pensadas para viajar seguro, ensayar cómodo y tocar sin preocupaciones.",
+    ctaPrimary: "Ver catálogo",
+    ctaSecondary: "Personalizar",
   },
-  trustClaim: "Elegida por musicos profesionales de todo el pais.",
-  /** Demo: reemplazar WhatsApp por el numero real (solo digitos, con codigo pais). */
+  trustClaim: "Elegida por músicos profesionales de todo el país.",
+  /** Demo: reemplazar WhatsApp por el número real (solo dígitos, con código país). */
   social: {
     instagram: "https://www.instagram.com/fundasargon/",
     email: "mailto:contacto@fundasargon.com",

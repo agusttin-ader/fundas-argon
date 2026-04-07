@@ -1,10 +1,12 @@
 import type { AppRepository } from "@/lib/data/contracts/repositories";
 
 const notReady = async () => {
-  throw new Error("Firestore adapter is not enabled in demo mode.");
+  throw new Error(
+    "Supabase adapter is scaffolded but not implemented yet. Configure env vars and implement queries.",
+  );
 };
 
-export const firestoreRepository: AppRepository = {
+export const supabaseRepository: AppRepository = {
   products: {
     list: notReady,
     upsert: notReady,

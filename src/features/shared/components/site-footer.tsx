@@ -60,7 +60,7 @@ function IconWhatsApp({ className }: { className?: string }) {
 export function SiteFooter() {
   const { instagram, email, whatsapp } = siteContent.social;
   const whatsappHref = `${whatsapp}?text=${encodeURIComponent(
-    "Hola ! Me podrias dar mas informacion sobre Fundas Argon?",
+    "¡Hola! ¿Me podrías dar más información sobre Fundas Argon?",
   )}`;
 
   return (

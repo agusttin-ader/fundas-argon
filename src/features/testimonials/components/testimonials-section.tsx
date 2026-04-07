@@ -18,9 +18,9 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
   return (
     <section className="space-y-6">
       <SectionTitle
-        eyebrow="Resenas"
+        eyebrow="Reseñas"
         title="Comentarios"
-        description="Experiencias de clientes y musicos que ya usan Fundas Argon para escenario, estudio, viajes y trabajo diario."
+        description="Experiencias de clientes y músicos que ya usan Fundas Argon para escenario, estudio, viajes y trabajo diario."
       />
       <div className="flex items-center justify-between text-sm text-[var(--color-text-muted)]">
         <p>Trabajos reales, sin humo</p>

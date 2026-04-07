@@ -26,7 +26,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-3 border-b border-[color-mix(in_srgb,var(--color-border)_36%,transparent)] pb-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
-                {product.line === "pro" ? "Argon Pro" : "Argon Clasica"}
+                {product.line === "pro" ? "Argon Pro" : "Argon Clásica"}
               </p>
               <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
                 {product.featured ? "Destacado" : "Coleccion"}

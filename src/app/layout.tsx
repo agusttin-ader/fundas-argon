@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fundas Argon | Demo Catalogo",
+  title: "Fundas Argon | Demo catálogo",
   description:
-    "Demo de catalogo para Fundas Argon: fundas artesanales semirrigidas para instrumentos.",
+    "Demo de catálogo para Fundas Argon: fundas artesanales semirrígidas para instrumentos.",
   manifest: "/manifest.webmanifest",
   icons: {
     icon: "/icon.svg",

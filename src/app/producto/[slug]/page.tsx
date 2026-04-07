@@ -7,6 +7,25 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { siteContent } from "@/content/site";
 import { catalogService } from "@/lib/data/services/catalog-service";
+import type { InstrumentCategory, ProductLine } from "@/types/domain";
+
+const categoryLabels: Record<InstrumentCategory, string> = {
+  guitarra: "Guitarra",
+  bajo: "Bajo",
+  bateria: "Batería",
+  platos: "Platos",
+  teclados: "Teclados",
+  percusion: "Percusión",
+  vientos: "Vientos",
+  dj: "DJ",
+  otros: "Otros",
+};
+
+const lineLabels: Record<ProductLine, string> = {
+  estandar: "Estándar",
+  pro: "Pro",
+  personalizada: "Personalizada",
+};
 
 export default function ProductDetailPage() {
   const params = useParams<{ slug: string }>();
@@ -45,9 +64,9 @@ export default function ProductDetailPage() {
     "hero-guitarra": "Frente",
     "detalle-cierre": "Cierre reforzado",
     "vista-frente": "Bolsillo frontal",
-    "cover-bajo": "Version bajo",
-    "cover-platos": "Version platos",
-    "cover-teclado": "Version teclado",
+    "cover-bajo": "Versión bajo",
+    "cover-platos": "Versión platos",
+    "cover-teclado": "Versión teclado",
   };
   const formatMediaLabel = (media: string) =>
     mediaLabelMap[media] ??
@@ -55,12 +74,12 @@ export default function ProductDetailPage() {
       .replaceAll("-", " ")
       .replace(/\b\w/g, (letter) => letter.toUpperCase());
   const detailTags = [
-    `${product.category} ${product.line === "pro" ? "linea pro" : "linea personalizada"}`,
+    `${categoryLabels[product.category]}, ${lineLabels[product.line]}`,
     "refuerzo para traslado real",
-    product.specs[0]?.toLowerCase() ?? "terminacion profesional",
+    product.specs[0]?.toLowerCase() ?? "terminación profesional",
   ];
   const whatsappHref = `${siteContent.social.whatsapp}?text=${encodeURIComponent(
-    `Hola como estan ? Me interesa la "${product.name}" me podrias dar mas informacion ?`,
+    `Hola, ¿cómo están? Me interesa "${product.name}". ¿Me podrían dar más información?`,
   )}`;
 
   const tabButtonClass = (tab: "detalle" | "caracteristicas" | "envio") =>
@@ -81,7 +100,7 @@ export default function ProductDetailPage() {
           className="h-11 w-auto opacity-100"
         />
         <Link href="/" className="argon-link-accent text-xs uppercase tracking-[0.12em] underline">
-          Volver al catalogo
+          Volver al catálogo
         </Link>
       </div>
 
@@ -89,7 +108,7 @@ export default function ProductDetailPage() {
         <article className="space-y-3">
           <div className="relative aspect-square overflow-hidden border border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] bg-[var(--color-surface-secondary)] p-4">
             <div className="absolute right-3 top-3 text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
-              {product.line}
+              {lineLabels[product.line]}
             </div>
             <div className="absolute inset-0 flex items-center justify-center text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
               IMAGEN
@@ -114,7 +133,9 @@ export default function ProductDetailPage() {
         </article>
 
         <article className="border border-[color-mix(in_srgb,var(--color-border)_42%,transparent)] bg-[color-mix(in_srgb,var(--color-surface)_96%,transparent)] p-4 md:p-6 min-[2560px]:p-8">
-          <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">{product.category}</p>
+          <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+            {categoryLabels[product.category]}
+          </p>
           <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl 2xl:text-5xl min-[2560px]:text-6xl">{product.name}</h1>
 
           <div className="mt-4 flex flex-wrap items-center gap-3 border-b border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] pb-4">
@@ -131,7 +152,7 @@ export default function ProductDetailPage() {
 
           <div className="mt-5 space-y-3 border-y border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] py-4">
             <div>
-              <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-text-muted)]">Linea</p>
+              <p className="text-xs uppercase tracking-[0.14em] text-[var(--color-text-muted)]">Variantes</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {(product.variants ?? ["Negro"]).map((variant) => (
                   <span
@@ -164,16 +185,16 @@ export default function ProductDetailPage() {
                 className={tabButtonClass("caracteristicas")}
                 onClick={() => setActiveTab("caracteristicas")}
               >
-                Caracteristicas
+                Características
               </button>
               <button type="button" className={tabButtonClass("envio")} onClick={() => setActiveTab("envio")}>
-                Envio
+                Envío
               </button>
             </div>
 
             {activeTab === "detalle" ? (
               <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
-                Trabajo artesanal semirrigido con terminacion profesional para uso real: sala, escenario y ruta.
+                Trabajo artesanal semirrígido con terminación profesional para uso real: sala, escenario y ruta.
               </p>
             ) : null}
             {activeTab === "caracteristicas" ? (
@@ -185,7 +206,7 @@ export default function ProductDetailPage() {
             ) : null}
             {activeTab === "envio" ? (
               <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
-                Coordinamos entrega en todo el pais. Para modelos a medida, confirmamos tiempos al cerrar tu pedido.
+                Coordinamos entrega en todo el país. Para modelos a medida, confirmamos tiempos al cerrar tu pedido.
               </p>
             ) : null}
           </div>

@@ -12,9 +12,9 @@ export function CatalogGrid({ products }: CatalogGridProps) {
   return (
     <section id="catalogo" className="space-y-6 pt-2">
       <SectionTitle
-        eyebrow="Catalogo"
+        eyebrow="Catálogo"
         title="Nuevos modelos"
-        description="Modelos semirrigidos linea Argon Clasica y Argon Pro, con proteccion real para ruta, escenario y traslados diarios."
+        description="Modelos semirrígidos, línea Argon Clásica y Argon Pro, con protección real para ruta, escenario y traslados diarios."
       />
       <div className="flex items-center justify-between text-sm text-[var(--color-text-muted)]">
         <p>

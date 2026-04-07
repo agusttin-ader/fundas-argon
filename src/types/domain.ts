@@ -51,6 +51,50 @@ export interface CustomizationRequest {
   status: "pendiente" | "contactado" | "cerrado";
 }
 
+export type OrderStatus = "pending" | "in_production" | "shipped" | "delivered";
+
+export type OrderChannel = "whatsapp" | "instagram" | "web" | "other";
+
+export interface OrderTimelineEntry {
+  at: string;
+  status: OrderStatus;
+  label?: string;
+}
+
+export interface OrderLine {
+  label: string;
+  quantity: number;
+  unitPrice?: number;
+}
+
+export interface Order {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  status: OrderStatus;
+  customerId?: string;
+  channel: OrderChannel;
+  summary: string;
+  lines: OrderLine[];
+  notes?: string;
+  timeline: OrderTimelineEntry[];
+}
+
+export interface CustomerNote {
+  id: string;
+  text: string;
+  createdAt: string;
+}
+
+export interface Customer {
+  id: string;
+  name: string;
+  email?: string;
+  phone?: string;
+  tags: string[];
+  notes: CustomerNote[];
+}
+
 export interface EmployeeUser {
   id: string;
   email: string;

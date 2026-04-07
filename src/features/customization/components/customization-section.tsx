@@ -6,9 +6,9 @@ import { SectionTitle } from "@/features/shared/components/section-title";
 
 const customizationSchema = z.object({
   fullName: z.string().min(2, "Ingresa tu nombre."),
-  email: z.string().email("Email invalido."),
+  email: z.string().email("Email inválido."),
   instrument: z.string().min(2, "Indica el instrumento."),
-  message: z.string().min(10, "Detalla un poco mas tu necesidad."),
+  message: z.string().min(10, "Detalla un poco más tu necesidad."),
 });
 
 type FormPayload = z.infer<typeof customizationSchema>;
@@ -37,12 +37,12 @@ export function CustomizationSection({ onSubmit }: CustomizationSectionProps) {
     <section id="personalizacion" className="grid gap-6 border-y border-[var(--color-border)] py-8 md:grid-cols-[1fr_1fr]">
       <div className="space-y-5">
         <SectionTitle
-          eyebrow="Personalizacion"
+          eyebrow="Personalización"
           title="Personaliza tu funda"
-          description="Trabajo especial a pedido en linea Argon Pro: medidas reales, bolsillos a pedido, cierres reforzados y terminacion profesional."
+          description="Trabajo especial a pedido en línea Argon Pro: medidas reales, bolsillos a pedido, cierres reforzados y terminación profesional."
         />
         <div className="grid gap-2 text-sm text-[var(--color-text-muted)]">
-          <p>1. Nos envias medidas, instrumento y forma de traslado.</p>
+          <p>1. Nos enviás medidas, instrumento y forma de traslado.</p>
           <p>2. Definimos estructura, apertura, bolsillos y nivel de refuerzo.</p>
           <p>3. Fabricamos a medida y coordinamos entrega.</p>
         </div>
@@ -63,7 +63,7 @@ export function CustomizationSection({ onSubmit }: CustomizationSectionProps) {
           setSubmitting(true);
           try {
             await onSubmit(parsed.data);
-            setSuccess("Solicitud enviada. El equipo de Argon se comunicara contigo.");
+            setSuccess("Solicitud enviada. El equipo de Argon se comunicará contigo.");
             setForm({
               fullName: "",
               email: "",
@@ -101,7 +101,7 @@ export function CustomizationSection({ onSubmit }: CustomizationSectionProps) {
             className="argon-input"
             value={form.instrument}
             onChange={(event) => setForm((prev) => ({ ...prev, instrument: event.target.value }))}
-            placeholder="Ej. guitarra electrica"
+            placeholder="Ej. guitarra eléctrica"
           />
         </label>
         <label className="argon-label">

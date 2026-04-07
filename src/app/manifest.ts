@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Fundas Argon",
     short_name: "Argon",
-    description: "Catalogo y panel mobile de Fundas Argon.",
+    description: "Catálogo y panel móvil de Fundas Argon.",
     start_url: "/",
     scope: "/",
     display: "standalone",
@@ -17,6 +17,14 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes: "any",
         type: "image/svg+xml",
         purpose: "maskable",
+      },
+    ],
+    shortcuts: [
+      {
+        name: "Panel admin",
+        short_name: "Admin",
+        description: "Abrir el panel de administración",
+        url: "/admin",
       },
     ],
   };

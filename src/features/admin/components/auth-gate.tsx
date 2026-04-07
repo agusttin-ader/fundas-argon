@@ -43,10 +43,10 @@ export function AuthGate({ children }: { children: ReactNode }) {
               />
             </div>
             <h1 className="text-xl font-semibold leading-tight">
-              {isSignUp ? "Crear usuario de empleado" : "Ingreso de administracion"}
+              {isSignUp ? "Crear usuario de empleado" : "Ingreso de administración"}
             </h1>
             <p className="text-sm text-[var(--color-text-muted)]">
-              Gestiona productos, comentarios y solicitudes de personalizacion en un solo lugar.
+              Gestiona productos, comentarios y solicitudes de personalización en un solo lugar.
             </p>
             <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 text-sm text-[var(--color-text-muted)]">
               {firebaseEnabled
@@ -74,7 +74,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
                   setError(
                     submissionError instanceof Error
                       ? submissionError.message
-                      : "No se pudo completar la autenticacion.",
+                      : "No se pudo completar la autenticación.",
                   );
                 } finally {
                   setSubmitting(false);
