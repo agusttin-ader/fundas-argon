@@ -4,9 +4,9 @@ export const siteContent = {
   city: "Hurlingham, Buenos Aires",
   hero: {
     titleLine1: "Fundas semirrígidas",
-    titleLine2: "hechas en Hurlingham · de tu taller argentino al escenario",
+    titleLine2: "hechas en Hurlingham.",
     subtitle:
-      "Fundas semirrígidas para guitarra, bajo, batería, teclados y más. Trabajos estándar y a medida, pensadas para viajar seguro, ensayar cómodo y tocar sin preocupaciones.",
+      "De tu taller argentino al escenario. Fundas semirrígidas para guitarra, bajo, batería, teclados y más. Trabajos estándar y a medida, pensadas para viajar seguro, ensayar cómodo y tocar sin preocupaciones.",
     ctaPrimary: "Ver catálogo",
     ctaSecondary: "Personalizar",
   },

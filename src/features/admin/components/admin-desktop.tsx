@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState, type RefObject } from "react";
+import { VinylImage } from "@/features/shared/components/vinyl-image";
 import type {
   CustomizationRequest,
   Customer,
@@ -150,18 +150,20 @@ export function AdminDesktop(props: AdminDesktopProps) {
   return (
     <main className="mx-auto flex w-full max-w-[1400px] flex-1 overflow-x-clip px-3 pt-3 md:h-[100dvh] md:overflow-hidden md:p-8 md:pb-8 2xl:max-w-[1680px] 2xl:p-10 min-[1920px]:max-w-[1880px] min-[1920px]:p-12 min-[2560px]:max-w-[2400px] min-[2560px]:p-14">
       <div className="w-full min-w-0 overflow-x-clip rounded-[1.6rem] border border-[color-mix(in_srgb,var(--color-border)_82%,transparent)] bg-[var(--color-surface)] p-3 md:h-[calc(100dvh-4rem)] md:rounded-[2rem] md:border-none md:p-5 2xl:rounded-[2.2rem] 2xl:p-6 min-[2560px]:rounded-[2.4rem] min-[2560px]:p-8">
-        <div className="grid w-full min-w-0 gap-5 md:h-full md:min-h-0 md:grid-cols-[228px_1fr] 2xl:grid-cols-[280px_1fr] 2xl:gap-6 min-[1920px]:grid-cols-[320px_1fr] min-[2560px]:grid-cols-[380px_1fr] min-[2560px]:gap-8">
+        <div className="grid w-full min-w-0 gap-5 md:h-full md:min-h-0 md:grid-cols-[244px_1fr] 2xl:grid-cols-[300px_1fr] 2xl:gap-6 min-[1920px]:grid-cols-[340px_1fr] min-[2560px]:grid-cols-[390px_1fr] min-[2560px]:gap-8">
           <aside className="argon-card relative hidden overflow-hidden rounded-[1.5rem] border-[color-mix(in_srgb,var(--color-border)_80%,#000)] bg-[var(--color-surface-secondary)] p-5 md:sticky md:top-0 md:flex md:h-full md:max-h-full md:self-start md:flex-col 2xl:p-6 min-[2560px]:p-7">
             <div className="relative z-10 flex h-full flex-col overflow-hidden">
               <div className="border-b border-[var(--color-border)] pb-4 text-center">
-                <Image
-                  src="/images/logo.png"
-                  alt="Fundas Argon"
-                  width={340}
-                  height={112}
-                  className="mx-auto h-20 w-auto object-contain md:h-24 2xl:h-28 min-[2560px]:h-32"
-                  priority
-                />
+                <Link href="/" aria-label="Ir al inicio">
+                  <VinylImage
+                    src="/images/logo.png"
+                    alt="Fundas Argon"
+                    width={340}
+                    height={112}
+                    className="mx-auto h-20 w-auto object-contain md:h-24 2xl:h-28 min-[2560px]:h-32"
+                    priority
+                  />
+                </Link>
                 <p className="mt-3 text-xs text-[var(--color-text-muted)]">Panel de administración</p>
               </div>
               <nav className="mt-5 space-y-2.5 text-sm">
@@ -199,10 +201,10 @@ export function AdminDesktop(props: AdminDesktopProps) {
                 </Link>
                 <button
                   type="button"
-                  className="w-full rounded-full border border-[var(--color-border)] bg-[var(--color-surface-secondary)] px-4 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-[var(--color-text-muted)] transition-[background-color,border-color,color] duration-[var(--argon-duration)] [transition-timing-function:var(--argon-ease)] hover:border-[var(--color-accent-red)] hover:bg-[var(--color-accent-red)] hover:text-white"
+                  className="w-full rounded-full border border-[var(--color-border)] bg-[var(--color-surface-secondary)] px-4 py-3 text-center text-[0.79rem] font-semibold uppercase tracking-[0.075em] text-[var(--color-text-muted)] transition-[background-color,border-color,color] duration-[var(--argon-duration)] [transition-timing-function:var(--argon-ease)] hover:border-[var(--color-accent-red)] hover:bg-[var(--color-accent-red)] hover:text-white"
                   onClick={() => logOut()}
                 >
-                  Cerrar sesion
+                  Cerrar sesión
                 </button>
               </div>
             </div>
@@ -871,16 +873,24 @@ export function AdminDesktop(props: AdminDesktopProps) {
                         <div className="space-y-2">
                           <p className="text-sm text-[var(--color-text-muted)]">Especificaciones frecuentes</p>
                           <div className="flex flex-wrap gap-2">
-                            {quickSpecTemplates.map((template) => (
-                              <button
-                                key={template}
-                                type="button"
-                                className="rounded-full border border-[var(--color-border)] px-3 py-1 text-xs text-[var(--color-text-muted)]"
-                                onClick={() => props.appendProductItem("specs", template)}
-                              >
-                                + {template}
-                              </button>
-                            ))}
+                            {quickSpecTemplates.map((template) => {
+                              const isSelected = props.productForm.specs.includes(template);
+                              return (
+                                <button
+                                  key={template}
+                                  type="button"
+                                  className={`rounded-full border px-3 py-1 text-xs transition-colors ${
+                                    isSelected
+                                      ? "border-emerald-500/50 bg-emerald-500/15 text-emerald-200"
+                                      : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-emerald-500/40 hover:text-emerald-200"
+                                  }`}
+                                  onClick={() => props.appendProductItem("specs", template)}
+                                >
+                                  {isSelected ? "✓ " : "+ "}
+                                  {template}
+                                </button>
+                              );
+                            })}
                           </div>
                           <div className="flex flex-wrap gap-2">
                             {props.productForm.specs.map((item) => (

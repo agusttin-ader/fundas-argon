@@ -8,7 +8,6 @@ import {
   requestStatusOptions,
   type AdminSection,
 } from "@/features/admin/admin-constants";
-import { AdminDesktop } from "@/features/admin/components/admin-desktop";
 import { adminService } from "@/lib/data/services/admin-service";
 import { useIsMobileAdmin } from "@/lib/hooks/use-is-mobile-admin";
 import type {
@@ -26,6 +25,14 @@ const MobileAdminShell = dynamic(
   () =>
     import("@/features/admin/mobile/mobile-admin-shell").then((m) => ({
       default: m.MobileAdminShell,
+    })),
+  { ssr: false },
+);
+
+const AdminDesktop = dynamic(
+  () =>
+    import("@/features/admin/components/admin-desktop").then((m) => ({
+      default: m.AdminDesktop,
     })),
   { ssr: false },
 );
@@ -232,6 +239,10 @@ export function AdminDashboard() {
   const testimonials = useMemo(() => testimonialsQuery.data ?? [], [testimonialsQuery.data]);
   const orders = useMemo(() => ordersQuery.data ?? [], [ordersQuery.data]);
   const customers = useMemo(() => customersQuery.data ?? [], [customersQuery.data]);
+  const customersById = useMemo(
+    () => new Map(customers.map((customer) => [customer.id, customer])),
+    [customers],
+  );
 
   const pendingRequests = sortedRequests.filter((request) => request.status === "pendiente").length;
   const contactadosRequests = sortedRequests.filter((request) => request.status === "contactado").length;
@@ -240,7 +251,7 @@ export function AdminDashboard() {
   const featuredTestimonials = testimonials.filter((testimonial) => testimonial.featured).length;
   const pendingOrdersCount = orders.filter((o) => o.status === "pending").length;
 
-  const getCustomer = (id: string) => customers.find((c) => c.id === id);
+  const getCustomer = (id: string) => customersById.get(id);
 
   const customerOrders = (customerId: string) =>
     orders.filter((o) => o.customerId === customerId);
@@ -304,9 +315,7 @@ export function AdminDashboard() {
     () =>
       orders.filter((order) => {
         const q = orderSearch.toLowerCase();
-        const cust = order.customerId
-          ? customers.find((c) => c.id === order.customerId)
-          : undefined;
+        const cust = order.customerId ? customersById.get(order.customerId) : undefined;
         const custName = cust?.name ?? "";
         const matchesSearch =
           order.summary.toLowerCase().includes(q) ||
@@ -315,7 +324,7 @@ export function AdminDashboard() {
         const matchesStatus = orderStatusFilter === "all" || order.status === orderStatusFilter;
         return matchesSearch && matchesStatus;
       }),
-    [orderSearch, orderStatusFilter, orders, customers],
+    [orderSearch, orderStatusFilter, orders, customersById],
   );
 
   const filteredCustomers = useMemo(
@@ -555,6 +564,14 @@ export function AdminDashboard() {
 
   if (isMobile === true) {
     return <MobileAdminShell {...mobileProps} />;
+  }
+
+  if (isMobile === null) {
+    return (
+      <main className="mx-auto flex w-full max-w-[1400px] flex-1 items-center justify-center p-6 md:p-8">
+        <div className="h-12 w-12 animate-spin rounded-full border-2 border-[var(--color-border)] border-t-[var(--color-accent-red)]" />
+      </main>
+    );
   }
 
   return <AdminDesktop {...desktopProps} />;

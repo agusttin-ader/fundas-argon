@@ -1,10 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { siteContent } from "@/content/site";
+import { DesktopVinylLoader } from "@/features/shared/components/desktop-vinyl-loader";
+import { VinylImage } from "@/features/shared/components/vinyl-image";
+import { useMinimumLoader } from "@/features/shared/hooks/use-minimum-loader";
 import { catalogService } from "@/lib/data/services/catalog-service";
 import type { InstrumentCategory, ProductLine } from "@/types/domain";
 
@@ -27,6 +29,7 @@ const lineLabels: Record<ProductLine, string> = {
 };
 
 export function ProductDetailPageClient({ slug }: { slug: string }) {
+  const minimumLoaderElapsed = useMinimumLoader(2000);
   const [selectedMedia, setSelectedMedia] = useState(0);
   const [activeTab, setActiveTab] = useState<"detalle" | "caracteristicas" | "envio">("detalle");
   const productsQuery = useQuery({
@@ -39,10 +42,20 @@ export function ProductDetailPageClient({ slug }: { slug: string }) {
     [productsQuery.data, slug],
   );
 
+  const shouldShowLoader = productsQuery.isLoading || !minimumLoaderElapsed;
+
+  if (shouldShowLoader) {
+    return (
+      <main className="mx-auto flex w-full max-w-6xl flex-1 items-center justify-center p-6 md:p-10 2xl:max-w-[90rem] min-[1920px]:max-w-[106rem] min-[2560px]:max-w-[138rem]">
+        <DesktopVinylLoader label="Cargando producto..." className="w-full text-center" />
+      </main>
+    );
+  }
+
   if (!product) {
     return (
       <main className="mx-auto flex w-full max-w-6xl flex-1 items-center justify-center p-6 md:p-10 2xl:max-w-[90rem] min-[1920px]:max-w-[106rem] min-[2560px]:max-w-[138rem]">
-        <p className="text-sm text-[var(--color-text-muted)]">Cargando producto...</p>
+        <p className="text-sm text-[var(--color-text-muted)]">Producto no encontrado.</p>
       </main>
     );
   }
@@ -81,14 +94,24 @@ export function ProductDetailPageClient({ slug }: { slug: string }) {
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 p-6 md:p-10 2xl:max-w-[90rem] 2xl:gap-8 2xl:px-12 min-[1920px]:max-w-[106rem] min-[1920px]:px-16 min-[2560px]:max-w-[138rem] min-[2560px]:gap-10 min-[2560px]:px-24">
       <div className="flex items-center justify-between border-b border-[color-mix(in_srgb,var(--color-border)_42%,transparent)] pb-4">
-        <Image
-          src="/images/logo.png"
-          alt="Fundas Argon"
-          width={220}
-          height={50}
-          className="h-11 w-auto opacity-100"
-        />
-        <Link href="/" className="argon-link-accent text-xs uppercase tracking-[0.12em] underline">
+        <Link
+          href="/"
+          aria-label="Ir al inicio"
+          className="group inline-flex items-center gap-3 rounded-xl border border-transparent px-2 py-1 transition-colors hover:border-[color-mix(in_srgb,var(--color-border)_55%,transparent)]"
+        >
+          <VinylImage
+            src="/images/logo.png"
+            alt="Fundas Argon"
+            width={220}
+            height={50}
+            className="h-11 w-auto opacity-95 transition-opacity group-hover:opacity-100"
+          />
+          <span className="hidden sm:flex flex-col leading-none">
+            <span className="text-[10px] uppercase tracking-[0.24em] text-[var(--color-accent-red)]">Fundas Argon</span>
+            <span className="mt-1 text-[11px] tracking-[0.08em] text-[var(--color-text-muted)]">Taller argentino</span>
+          </span>
+        </Link>
+        <Link href="/#catalogo" className="argon-link-accent text-xs uppercase tracking-[0.12em] underline">
           Volver al catálogo
         </Link>
       </div>

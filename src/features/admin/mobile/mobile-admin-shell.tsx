@@ -1,10 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
 import { useMemo, useState } from "react";
+import { VinylImage } from "@/features/shared/components/vinyl-image";
 import {
   categoryLabels,
   categoryOptions,
@@ -263,13 +263,15 @@ export function MobileAdminShell(props: MobileAdminShellProps) {
     <main className="min-h-[100dvh] bg-[var(--color-surface)] pb-[calc(env(safe-area-inset-bottom)+7.25rem)] pt-[env(safe-area-inset-top)]">
       <div className="sticky top-0 z-20 border-b border-[color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-surface)_92%,transparent)] px-4 py-3.5 backdrop-blur-md">
         <div className="flex items-center justify-between gap-3">
-          <Image
-            src="/images/logo.png"
-            alt="Argon"
-            width={160}
-            height={160}
-            className="h-14 w-14 shrink-0 rounded-xl object-contain"
-          />
+          <Link href="/" aria-label="Ir al inicio">
+            <VinylImage
+              src="/images/logo.png"
+              alt="Argon"
+              width={160}
+              height={160}
+              className="h-14 w-14 shrink-0 rounded-xl object-contain"
+            />
+          </Link>
           <div className="text-right">
             <p className="whitespace-nowrap text-lg font-bold leading-tight text-[var(--color-text-primary)]">
               👋 {greeting}, {user?.displayName ?? "Equipo Argon"} !
@@ -312,7 +314,7 @@ export function MobileAdminShell(props: MobileAdminShellProps) {
                       : { type: "spring", stiffness: 180, damping: 18 }
                   }
                 >
-                  <Image
+                  <VinylImage
                     src="/images/logo.png"
                     alt="Vinilo"
                     width={28}

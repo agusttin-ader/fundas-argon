@@ -18,16 +18,25 @@ export function Providers({ children }: { children: ReactNode }) {
         },
       }),
   );
-
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
+    const isLocalhost =
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1" ||
+      window.location.hostname === "::1";
 
-    if (process.env.NODE_ENV !== "production") {
+    if (process.env.NODE_ENV !== "production" || isLocalhost) {
       navigator.serviceWorker.getRegistrations().then((registrations) => {
         registrations.forEach((registration) => {
           registration.unregister();
         });
       });
+      caches
+        .keys()
+        .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+        .catch(() => {
+          // Ignore cache cleanup errors in unsupported contexts.
+        });
       return;
     }
 
@@ -40,7 +49,9 @@ export function Providers({ children }: { children: ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <AuthProvider>
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            {children}
+          </CartProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

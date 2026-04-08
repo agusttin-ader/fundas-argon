@@ -130,6 +130,31 @@ export const mockProducts: Product[] = [
     stock: 1,
     variants: ['18"', '20"', '22"', "A medida"],
   },
+  {
+    id: "prod-sordina-bat-01",
+    slug: "sordina-argon-bateria",
+    name: "Sordina Argon para batería",
+    category: "bateria",
+    line: "estandar",
+    shortDescription: "Sordina artesanal para aro, ideal para practicar sin ensuciar el sonido.",
+    description:
+      "Hecha artesanalmente en cuero y pana, se fija al aro con broche recubierto en cuero, copia el movimiento del parche, no mancha y ofrece una respuesta práctica para estudio y ensayo.",
+    featured: false,
+    featuredOrder: 110,
+    hero: false,
+    coverImage: "cover-sordina",
+    gallery: ["cover-sordina", "detalle-sordina-medidas"],
+    specs: [
+      "Cuero y pana artesanal",
+      "Broche fijo recubierto en cuero",
+      "No mancha el parche",
+      "Copia el movimiento",
+    ],
+    tags: ["Sordina", "Batería", "Práctica", "Accesorio"],
+    priceFrom: 0,
+    stock: 1,
+    variants: ["Micro", "Mini", "Chica", "Mediana", "Grande"],
+  },
 ];
 
 export const mockTestimonials: Testimonial[] = [

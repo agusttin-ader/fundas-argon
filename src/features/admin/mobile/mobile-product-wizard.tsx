@@ -181,17 +181,25 @@ export function MobileProductWizard(props: {
             <div>
               <p className="mb-2 text-sm text-[var(--color-text-muted)]">Especificaciones</p>
               <div className="flex flex-wrap gap-2">
-                {quickSpecTemplates.map((t) => (
-                  <motion.button
-                    key={t}
-                    type="button"
-                    whileTap={reduceMotion ? undefined : { scale: adminTapScale }}
-                    className="rounded-full border border-[var(--color-border)] px-3.5 py-2 text-sm"
-                    onClick={() => props.appendProductItem("specs", t)}
-                  >
-                    + {t}
-                  </motion.button>
-                ))}
+                {quickSpecTemplates.map((t) => {
+                  const isSelected = props.productForm.specs.includes(t);
+                  return (
+                    <motion.button
+                      key={t}
+                      type="button"
+                      whileTap={reduceMotion ? undefined : { scale: adminTapScale }}
+                      className={`rounded-full border px-3.5 py-2 text-sm transition-colors ${
+                        isSelected
+                          ? "border-emerald-500/50 bg-emerald-500/15 text-emerald-200"
+                          : "border-[var(--color-border)] text-[var(--color-text-muted)]"
+                      }`}
+                      onClick={() => props.appendProductItem("specs", t)}
+                    >
+                      {isSelected ? "✓ " : "+ "}
+                      {t}
+                    </motion.button>
+                  );
+                })}
               </div>
               <div className="mt-2 flex flex-wrap gap-2">
                 {props.productForm.specs.map((item) => (

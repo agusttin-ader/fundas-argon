@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { siteContent } from "@/content/site";
 import { ThemeToggle } from "@/features/shared/components/theme-toggle";
+import { VinylImage } from "@/features/shared/components/vinyl-image";
 
 type TonearmMode = "rest" | "tracking";
 
@@ -198,14 +198,16 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-[var(--color-border)] pt-6 pb-8 md:pt-8 md:pb-12">
       <div className="grid items-center gap-8 md:grid-cols-[0.95fr_1.05fr] 2xl:gap-12 min-[2560px]:gap-16">
-        <div className="space-y-6">
-          <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-accent-red)]">{brandName}</p>
-          <h1 className="text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl 2xl:text-8xl min-[1920px]:text-[6.2rem] min-[2560px]:text-[7.4rem]">
+        <div className="space-y-6 md:space-y-7">
+          <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-accent-red)]">{brandName}</p>
+          <h1 className="max-w-[13ch] text-5xl font-semibold leading-[0.92] tracking-[-0.02em] md:text-[4.35rem] 2xl:text-[5.1rem] min-[1920px]:text-[5.8rem] min-[2560px]:text-[6.8rem]">
             {hero.titleLine1}
             <br />
             {hero.titleLine2}
           </h1>
-          <p className="max-w-md text-sm leading-relaxed text-[var(--color-text-muted)]">{hero.subtitle}</p>
+          <p className="max-w-[44ch] text-sm leading-relaxed text-[var(--color-text-muted)] md:text-[0.95rem]">
+            {hero.subtitle}
+          </p>
           <div className="flex flex-wrap gap-3">
             <a href="#catalogo" className="argon-button-primary">
               {hero.ctaPrimary}
@@ -255,7 +257,7 @@ export function Hero() {
             <div className="absolute inset-[36%] z-[1] rounded-full border border-[#2a2a2a] bg-[var(--color-bg)]" />
             {/* Logo acorde al segundo círculo / área de etiqueta grande (~42–44% del disco). */}
             <div className="absolute left-1/2 top-1/2 z-10 flex h-[42%] w-[42%] -translate-x-1/2 -translate-y-1/2 items-center justify-center md:h-[44%] md:w-[44%]">
-              <Image
+              <VinylImage
                 src="/images/logo.png"
                 alt="Fundas Argon"
                 width={320}

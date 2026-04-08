@@ -1,23 +1,36 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { DesktopVinylLoader } from "@/features/shared/components/desktop-vinyl-loader";
+import { VinylImage } from "@/features/shared/components/vinyl-image";
+import { useMinimumLoader } from "@/features/shared/hooks/use-minimum-loader";
 import { useState, type ReactNode } from "react";
 import { useAuth } from "@/lib/auth/auth-context";
 
 export function AuthGate({ children }: { children: ReactNode }) {
   const { user, loading, signIn, signUp, firebaseEnabled } = useAuth();
+  const minimumLoaderElapsed = useMinimumLoader(2000);
+  const [authTransitioning, setAuthTransitioning] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const AUTH_TRANSITION_MS = 2500;
 
-  if (loading) {
+  if (loading || !minimumLoaderElapsed) {
     return (
       <main className="mx-auto flex w-full max-w-4xl flex-1 items-center justify-center p-6">
-        <p className="text-sm text-[var(--color-text-muted)]">Cargando acceso...</p>
+        <DesktopVinylLoader label="Cargando acceso..." className="w-full text-center" />
+      </main>
+    );
+  }
+
+  if (authTransitioning) {
+    return (
+      <main className="mx-auto flex w-full max-w-4xl flex-1 items-center justify-center p-6">
+        <DesktopVinylLoader label="Ingresando..." className="w-full text-center" />
       </main>
     );
   }
@@ -33,7 +46,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
           <div className="absolute inset-0 bg-[linear-gradient(140deg,transparent_0%,color-mix(in_srgb,var(--color-accent-red)_10%,transparent)_55%,transparent_100%)]" />
           <div className="relative z-10 space-y-4 text-center">
             <div className="flex justify-center py-2 md:py-3">
-              <Image
+              <VinylImage
                 src="/images/logo.png"
                 alt="Fundas Argon"
                 width={520}
@@ -64,18 +77,23 @@ export function AuthGate({ children }: { children: ReactNode }) {
                 event.preventDefault();
                 setError("");
                 setSubmitting(true);
+                setAuthTransitioning(true);
                 try {
-                  if (isSignUp) {
-                    await signUp(displayName || "Equipo Argon", email, password);
-                  } else {
-                    await signIn(email, password);
-                  }
+                  const authRequest = isSignUp
+                    ? signUp(displayName || "Equipo Argon", email, password)
+                    : signIn(email, password);
+                  const perceivedLoginDelay = new Promise((resolve) => {
+                    window.setTimeout(resolve, AUTH_TRANSITION_MS);
+                  });
+                  await Promise.all([authRequest, perceivedLoginDelay]);
+                  setAuthTransitioning(false);
                 } catch (submissionError) {
                   setError(
                     submissionError instanceof Error
                       ? submissionError.message
                       : "No se pudo completar la autenticación.",
                   );
+                  setAuthTransitioning(false);
                 } finally {
                   setSubmitting(false);
                 }
