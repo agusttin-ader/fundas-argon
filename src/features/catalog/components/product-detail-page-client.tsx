@@ -85,9 +85,9 @@ export function ProductDetailPageClient({ slug }: { slug: string }) {
   )}`;
 
   const tabButtonClass = (tab: "detalle" | "caracteristicas" | "envio") =>
-    `border-b-2 pb-2 text-xs uppercase tracking-[0.12em] transition-colors ${
+    `relative pb-2 text-xs uppercase tracking-[0.12em] transition-colors ${
       activeTab === tab
-        ? "border-[var(--color-accent-red)] text-[var(--color-text-primary)]"
+        ? "text-[var(--color-text-primary)]"
         : "border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
     }`;
 
@@ -190,17 +190,35 @@ export function ProductDetailPageClient({ slug }: { slug: string }) {
           <div className="mt-7 border-t border-[color-mix(in_srgb,var(--color-border)_40%,transparent)] pt-4">
             <div className="flex items-center gap-5">
               <button type="button" className={tabButtonClass("detalle")} onClick={() => setActiveTab("detalle")}>
-                Detalle
+                <span>Detalle</span>
+                <span
+                  aria-hidden
+                  className={`absolute bottom-0 left-0 h-[2px] w-full bg-[var(--color-accent-red)] ${
+                    activeTab === "detalle" ? "block" : "hidden"
+                  }`}
+                />
               </button>
               <button
                 type="button"
                 className={tabButtonClass("caracteristicas")}
                 onClick={() => setActiveTab("caracteristicas")}
               >
-                Características
+                <span>Características</span>
+                <span
+                  aria-hidden
+                  className={`absolute bottom-0 left-0 h-[2px] w-full bg-[var(--color-accent-red)] ${
+                    activeTab === "caracteristicas" ? "block" : "hidden"
+                  }`}
+                />
               </button>
               <button type="button" className={tabButtonClass("envio")} onClick={() => setActiveTab("envio")}>
-                Envío
+                <span>Envío</span>
+                <span
+                  aria-hidden
+                  className={`absolute bottom-0 left-0 h-[2px] w-full bg-[var(--color-accent-red)] ${
+                    activeTab === "envio" ? "block" : "hidden"
+                  }`}
+                />
               </button>
             </div>
 
