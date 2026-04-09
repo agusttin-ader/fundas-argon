@@ -20,29 +20,17 @@ export function Providers({ children }: { children: ReactNode }) {
   );
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
-    const isLocalhost =
-      window.location.hostname === "localhost" ||
-      window.location.hostname === "127.0.0.1" ||
-      window.location.hostname === "::1";
-
-    if (process.env.NODE_ENV !== "production" || isLocalhost) {
-      navigator.serviceWorker.getRegistrations().then((registrations) => {
-        registrations.forEach((registration) => {
-          registration.unregister();
-        });
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      registrations.forEach((registration) => {
+        registration.unregister();
       });
-      caches
-        .keys()
-        .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
-        .catch(() => {
-          // Ignore cache cleanup errors in unsupported contexts.
-        });
-      return;
-    }
-
-    navigator.serviceWorker.register("/sw.js").catch(() => {
-      // Ignore registration errors to avoid impacting app usage.
     });
+    caches
+      .keys()
+      .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+      .catch(() => {
+        // Ignore cache cleanup errors in unsupported contexts.
+      });
   }, []);
 
   return (

@@ -25,7 +25,13 @@ export function HomePageClient() {
   });
 
   const customizationMutation = useMutation({
-    mutationFn: (payload: { fullName: string; email: string; instrument: string; message: string }) =>
+    mutationFn: (payload: {
+      fullName: string;
+      email: string;
+      instrument: string;
+      message: string;
+      imageUrls?: string[];
+    }) =>
       customizationService.createRequest(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customization-requests"] });

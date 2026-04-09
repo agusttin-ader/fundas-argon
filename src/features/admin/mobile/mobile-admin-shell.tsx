@@ -623,6 +623,25 @@ export function MobileAdminShell(props: MobileAdminShellProps) {
                               </p>
                               <p className="text-sm text-[var(--color-text-muted)]">{request.email}</p>
                               <p className="mt-2 text-sm">{request.message}</p>
+                              {request.imageUrls?.length ? (
+                                <div className="mt-2 flex flex-wrap gap-2">
+                                  {request.imageUrls.map((url, index) => (
+                                    <a
+                                      key={`${request.id}-img-${index}`}
+                                      href={url}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="block overflow-hidden rounded-lg border border-[var(--color-border)]"
+                                    >
+                                      <img
+                                        src={url}
+                                        alt={`Adjunto ${index + 1} de ${request.fullName}`}
+                                        className="h-14 w-14 object-cover"
+                                      />
+                                    </a>
+                                  ))}
+                                </div>
+                              ) : null}
                             </div>
                           </SwipeableAdminCard>
                           ))

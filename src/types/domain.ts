@@ -47,6 +47,7 @@ export interface CustomizationRequest {
   email: string;
   instrument: string;
   message: string;
+  imageUrls?: string[];
   createdAt: string;
   status: "pendiente" | "contactado" | "cerrado";
 }
